@@ -18,7 +18,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@physlane/ui": ["libs/ui/src/index.ts"]
+      "@physlane/ui": ["libs/ui/src/index.ts"],
+      "@physlane/ui/*": ["libs/ui/src/*"],
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

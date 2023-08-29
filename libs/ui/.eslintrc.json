@@ -3,6 +3,17 @@
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
+      "files": ["src/components/*.ts", "src/components/*.tsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "allowCircularSelfDependency": true
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {}
     },
