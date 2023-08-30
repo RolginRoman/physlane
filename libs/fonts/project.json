@@ -1,0 +1,8 @@
+{
+  "name": "fonts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/fonts/src",
+  "projectType": "library",
+  "targets": {},
+  "tags": []
+}

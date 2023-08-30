@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import { Button, Intro } from '@physlane/ui';
+import { Button } from '@physlane/ui';
 
 import {
   DropdownMenu,
@@ -19,8 +19,6 @@ import {
 export default async function Index() {
   return (
     <div className={styles.page}>
-      <Intro></Intro>
-
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">Open</Button>

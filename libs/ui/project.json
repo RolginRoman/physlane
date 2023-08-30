@@ -41,6 +41,14 @@
           "codeCoverage": true
         }
       }
+    },
+    "add-component": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "/",
+        "commands": ["pnpx shadcn-ui@latest add {args.cmp} -w"],
+        "parallel": false
+      }
     }
   }
 }

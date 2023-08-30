@@ -20,6 +20,7 @@
     "paths": {
       "@/*": ["./*"],
       "@physlane/db": ["libs/db/src/index.ts"],
+      "@physlane/fonts": ["libs/fonts/src/index.ts"],
       "@physlane/ui": ["libs/ui/src/index.ts"],
       "@physlane/ui/*": ["libs/ui/src/*"]
     }
