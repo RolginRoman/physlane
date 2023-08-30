@@ -67,6 +67,13 @@
         "style": "css",
         "linter": "eslint"
       }
+    },
+    "@nx/js": {
+      "library": {
+        "bundler": "vite",
+        "linter": "eslint",
+        "unitTestRunner": "jest"
+      }
     }
   }
 }

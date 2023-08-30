@@ -1,5 +1,4 @@
 import './global.css';
-import Head from 'next/head';
 
 export const metadata = {
   title: 'Welcome to physlane',
@@ -13,9 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <title>Welcome to site!</title>
-      </Head>
+      <title>Welcome to site!</title>
       <body>{children}</body>
     </html>
   );
