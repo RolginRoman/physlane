@@ -1,3 +1,3 @@
+export * from './components/blocks';
+export * from './components/ui';
 export * from './utils';
-export * from './components/ui/button';
-export * from './components/ui/dropdown-menu';

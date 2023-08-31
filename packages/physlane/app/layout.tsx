@@ -1,11 +1,13 @@
+import '@radix-ui/themes/styles.css';
 import './global.css';
 
-import { cn } from '@physlane/ui';
 import { fontSans } from '@physlane/fonts';
+import { Header, cn } from '@physlane/ui';
+import { Theme } from '@radix-ui/themes';
 
 export const metadata = {
-  title: 'Welcome to physlane',
   description: 'One of the kind',
+  title: 'Welcome to physlane',
 };
 
 export default function RootLayout({
@@ -21,7 +23,10 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <Theme>
+          <Header></Header>
+          {children}
+        </Theme>
       </body>
     </html>
   );

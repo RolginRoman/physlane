@@ -1,29 +1,9 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "esnext",
-    "lib": ["es2020", "ES2021.Intl", "ES2021", "ES2022", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],
-      "@physlane/db": ["libs/db/src/index.ts"],
-      "@physlane/fonts": ["libs/fonts/src/index.ts"],
-      "@physlane/ui": ["libs/ui/src/index.ts"],
-      "@physlane/ui/*": ["libs/ui/src/*"]
-    }
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "exclude": ["node_modules", "tmp"]
+  "extends": "./tsconfig.base.json"
 }

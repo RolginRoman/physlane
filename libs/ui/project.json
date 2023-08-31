@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["ui-primitives"],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
@@ -45,9 +45,7 @@
     "add-component": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "/",
-        "commands": ["pnpx shadcn-ui@latest add {args.cmp} -w"],
-        "parallel": false
+        "commands": ["pnpx shadcn-ui@latest add {args.cmp}"]
       }
     }
   }
