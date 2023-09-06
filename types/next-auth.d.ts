@@ -15,4 +15,9 @@ declare module 'next-auth' {
       id: UserId;
     };
   }
+  interface DefaultSession {
+    user: User & {
+      id: UserId;
+    };
+  }
 }

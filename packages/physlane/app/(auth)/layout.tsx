@@ -1,7 +1,5 @@
-interface AuthLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function AuthLayout({ children }: AuthLayoutProps) {
-  return <div className="flex justify-center w-full">{children}</div>;
+export default function AuthLayout({
+  children,
+}: React.PropsWithChildren<void>) {
+  return <div className="flex justify-center flex-col w-full">{children}</div>;
 }

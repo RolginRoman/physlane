@@ -1,13 +1,12 @@
 import { LinkProps, default as NextLink } from 'next/link';
 import { Link as ThemedLink } from '@radix-ui/themes';
 
-export default function Link({
+export function Link({
   children,
   href,
   ...props
-}: LinkProps & {
-  children?: React.ReactNode;
-} & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+}: React.PropsWithChildren<LinkProps> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <ThemedLink asChild>
       <NextLink {...props} href={href}>
@@ -16,3 +15,5 @@ export default function Link({
     </ThemedLink>
   );
 }
+
+export default Link;

@@ -2,8 +2,9 @@ import '@radix-ui/themes/styles.css';
 import './global.css';
 
 import { fontSans } from '@physlane/fonts';
-import { Header, cn } from '@physlane/ui';
+import { cn } from '@physlane/ui';
 import { Theme } from '@radix-ui/themes';
+import Header from '../src/components/header';
 
 export const metadata = {
   description: 'One of the kind',
@@ -12,9 +13,7 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: React.PropsWithChildren<void>) {
   return (
     <html lang="en">
       <body

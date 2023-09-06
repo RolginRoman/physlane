@@ -1,8 +1,8 @@
-import { Logo } from '../logo/logo';
-import { Menu } from '../menu/menu';
-import UserMenu from '../user-menu/user-menu';
+import { Logo } from './logo/logo';
+import Menu from './menu';
+import UserMenu from './user-menu';
 
-export function Header() {
+export default function Header() {
   return (
     <header className="flex p-4 sticky justify-between">
       <div className="flex items-center">
@@ -15,4 +15,3 @@ export function Header() {
     </header>
   );
 }
-export default Header;

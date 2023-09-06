@@ -1,15 +1,16 @@
 import { getUser } from '@physlane/auth/core';
-import { Icons } from '../../ui';
+import { SignOut } from '@physlane/auth/ui';
+import { Text } from '@radix-ui/themes';
+import { Session } from 'next-auth';
 import {
+  Icons,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu';
-import Link from '../link/link';
-import { Session } from 'next-auth';
-import { Text } from '@radix-ui/themes';
+  Link,
+} from '@physlane/ui';
 
 export default async function UserMenu() {
   const currentUser = await getUser();
@@ -18,24 +19,28 @@ export default async function UserMenu() {
     return <UserMenuDropdown user={currentUser}></UserMenuDropdown>;
   }
 
-  return <Link href={'/signin'}>Sign in</Link>;
+  return (
+    <Link href={'/signin'} className="text-slate-800">
+      <Icons.Login></Icons.Login>
+    </Link>
+  );
+
+  // return <Link href={'/signin'}>Sign in</Link>;
 }
 
 function UserMenuDropdown({ user }: { user: Session['user'] }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Icons.user className="mx-auto h-6 w-6 cursor-pointer" />
+        <Icons.User className="text-slate-800 mx-auto h-6 w-6 cursor-pointer" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ">
+      <DropdownMenuContent className="w-56 me-4">
         <DropdownMenuLabel>
           <Text className="cursor-default">{user?.name}</Text>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>
-          <Link className="w-full flex" href={'api/auth/signout'}>
-            Sign out
-          </Link>
+          <SignOut></SignOut>
         </DropdownMenuLabel>
       </DropdownMenuContent>
     </DropdownMenu>

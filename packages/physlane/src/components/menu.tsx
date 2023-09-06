@@ -1,9 +1,9 @@
+import { Link } from '@physlane/ui';
 import { HTMLAttributes } from 'react';
-import Link from '../link/link';
 
 const menuItems = [{ href: '/', name: 'home' }];
 
-export function Menu(props: HTMLAttributes<HTMLElement>) {
+export default function Menu(props: HTMLAttributes<HTMLElement>) {
   return (
     <nav {...props}>
       <ul className="flex space-x-2">

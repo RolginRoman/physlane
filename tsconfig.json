@@ -2,8 +2,7 @@
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "noImplicitReturns": true
   },
   "extends": "./tsconfig.base.json"
 }

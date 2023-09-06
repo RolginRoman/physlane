@@ -1,5 +1,6 @@
-import { User2 } from 'lucide-react';
+import { User2, KeyRound } from 'lucide-react';
 
 export const Icons = {
-  user: User2,
+  Login: KeyRound,
+  User: User2,
 };
