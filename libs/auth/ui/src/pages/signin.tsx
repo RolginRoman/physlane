@@ -8,7 +8,7 @@ import { match } from 'ts-pattern';
 export function SignIn({
   csrfToken,
   providers,
-}: {
+}: React.HTMLAttributes<HTMLDivElement> & {
   csrfToken: string | undefined;
   providers: Record<string, { name: string; id: string; type: string }> | null;
 }) {

@@ -5,7 +5,6 @@ import { db } from '@physlane/db';
 import { z } from 'zod';
 import { JWT } from 'next-auth/jwt';
 import { User as DbUser, Account } from '@prisma/client';
-import { resolveInternalProviderName } from './credentials-provider.helper';
 import { compareSync } from 'bcryptjs';
 
 const CredentialsSchema = z.object({
@@ -62,7 +61,11 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: 'signin',
+    error: '/signin',
+    newUser: '/welcome',
+    signIn: '/signin',
+    signOut: '/',
+    verifyRequest: '/',
   },
   providers: [
     CredentialsProvider({
@@ -80,7 +83,8 @@ export const authOptions: NextAuthOptions = {
           include: {
             accounts: {
               where: {
-                provider: resolveInternalProviderName(email),
+                provider: 'internal',
+                providerAccountId: email,
               },
             },
           },

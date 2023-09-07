@@ -1,7 +1,10 @@
 import { Link } from '@physlane/ui';
 import { HTMLAttributes } from 'react';
 
-const menuItems = [{ href: '/', name: 'home' }];
+const menuItems = [
+  { href: '/', name: 'home' },
+  { href: '/analytics', name: 'analytics' },
+];
 
 export default function Menu(props: HTMLAttributes<HTMLElement>) {
   return (

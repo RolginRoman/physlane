@@ -1,7 +1,6 @@
 import { db } from '@physlane/db';
 import { hash } from 'bcryptjs';
 import { z } from 'zod';
-import { resolveInternalProviderName } from './credentials-provider.helper';
 
 const Payload = z.object({
   email: z
@@ -28,8 +27,8 @@ export async function register(payload: z.infer<typeof Payload>) {
         create: [
           {
             password: hashed_password,
-            provider: resolveInternalProviderName(email),
-            providerAccountId: 'internal',
+            provider: 'internal',
+            providerAccountId: email,
             type: 'credentials',
           },
         ],

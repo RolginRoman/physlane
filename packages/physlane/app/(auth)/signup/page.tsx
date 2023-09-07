@@ -1,3 +1,4 @@
+import { isNotAuthorized } from '@physlane/auth/core';
 import { SignUp } from '@physlane/auth/ui';
 import { Metadata } from 'next';
 
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
   title: 'Create an account',
 };
 
-export default async function SignUnPage() {
+async function SignUnPage() {
   return <SignUp></SignUp>;
 }
+
+export default isNotAuthorized(SignUnPage, '/');

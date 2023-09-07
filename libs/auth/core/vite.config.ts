@@ -23,7 +23,7 @@ export default defineConfig({
     },
   },
 
-  cacheDir: '../../../node_modules/.vite/core',
+  cacheDir: '../../../node_modules/.vite/auth-core',
 
   // Uncomment this if you are using workers.
   // worker: {

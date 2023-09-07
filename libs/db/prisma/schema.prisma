@@ -9,23 +9,25 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
   expires_at        Int?
   password          String
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?  @db.Text
   session_state     String?
+  createdAt         DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([providerAccountId])
 }
 
 model Session {
@@ -36,20 +38,49 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-}
-
 model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model User {
+  id               String            @id @default(cuid())
+  name             String?
+  email            String?           @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  reportAggregator ReportAggregator?
+
+  @@index([id, email])
+}
+
+model ReportAggregator {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId        String        @unique
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weightEntries WeightEntry[]
+
+  @@index([userId])
+}
+
+enum Measure {
+  KG
+  LBS
+}
+
+model WeightEntry {
+  id        String   @id @default(cuid())
+  weight    Float
+  measure   Measure  @default(KG)
+  createdAt DateTime @default(now())
+
+  reportAggregator   ReportAggregator @relation(fields: [reportAggregatorId], references: [id])
+  reportAggregatorId String
 }
