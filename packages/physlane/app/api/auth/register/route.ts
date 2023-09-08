@@ -4,18 +4,17 @@ import type { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
-    const form = {
-      email: formData.get('email') as string,
-      name: formData.get('name') as string,
-      password: formData.get('password') as string,
-    };
-    await register(form);
+    const { redirectUrl, ...rest } = await req.json();
+    const user = await register(rest);
 
     const url = req.nextUrl.clone();
-    url.pathname = '/';
-    return NextResponse.redirect(url);
+    url.pathname = redirectUrl;
+    return NextResponse.json({
+      redirectUrl: url,
+      user,
+    });
   } catch (error: unknown) {
+    // TODO zod errors / email unique
     return new NextResponse(
       JSON.stringify({
         message: error instanceof Error ? error.message : 'Cannot create user',

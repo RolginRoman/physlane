@@ -1,11 +1,28 @@
 'use client';
-import { Button, Input, Link } from '@physlane/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { UserBaseCredentials } from '@physlane/domain';
+import {
+  Button,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from '@physlane/ui';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
+import { z } from 'zod';
+import { Layout } from './base';
+import React from 'react';
 
 export function SignIn({
+  children,
+  className,
   csrfToken,
   providers,
 }: React.HTMLAttributes<HTMLDivElement> & {
@@ -13,7 +30,7 @@ export function SignIn({
   providers: Record<string, { name: string; id: string; type: string }> | null;
 }) {
   return (
-    <>
+    <Layout className={className} footer={children}>
       {providers &&
         Object.values(providers).map((provider) =>
           match(provider)
@@ -24,64 +41,121 @@ export function SignIn({
               ></CredentialsForm>
             ))
             .otherwise((provider) => (
-              <div key={provider.type}>
-                <Button
-                  onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-                >
-                  Sign in with {provider.name}
-                </Button>
-              </div>
+              <OAuthProvider provider={provider}></OAuthProvider>
             ))
         )}
-
-      <Link href="/signup" className="block">
-        Sign up
-      </Link>
-    </>
+    </Layout>
   );
 }
+
+const OAuthProvider = ({
+  provider,
+}: {
+  provider: { name: string; id: string; type: string };
+}) => (
+  <div key={provider.type}>
+    <Button onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
+      Sign in with {provider.name}
+    </Button>
+  </div>
+);
 
 const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
   const router = useRouter();
 
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+  const form = useForm<z.infer<typeof UserBaseCredentials>>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
+    resolver: zodResolver(UserBaseCredentials, {
+      errorMap: (error, ctx) => {
+        return { message: ctx.defaultError };
+      },
+    }),
   });
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  async function onFormSubmit({
+    email,
+    password,
+  }: z.infer<typeof UserBaseCredentials>) {
     try {
       const res = await signIn('credentials', {
         callbackUrl: '/',
-        email: formValues.email,
-        password: formValues.password,
+        email,
+        password,
         redirect: true, // TODO is it possible to refresh server side session after login? https://github.com/nextauthjs/next-auth/issues/8254
       });
       if (res && res.url && !res.error) {
         router.push(res.url);
       } else {
+        form.setError('root', {
+          message: 'invalid email or password',
+          type: 'validate',
+        });
         throw new Error('invalid email or password');
       }
     } catch (error: any) {
       console.error(error);
     }
-  };
+  }
 
   return (
-    <form className="w-full" onSubmit={onSubmit}>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-      <Input placeholder="email" name="email" onChange={handleChange}></Input>
-      <Input
-        name="password"
-        placeholder="password"
-        onChange={handleChange}
-      ></Input>
-      <Button type="submit">Login</Button>
-    </form>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onFormSubmit)}
+        className="space-y-3 w-full"
+      >
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="fancy@mail.com" {...field}></Input>
+              </FormControl>
+              {fieldState.error ? (
+                <FormMessage className="text-xs"></FormMessage>
+              ) : (
+                <FormDescription className="text-xs">
+                  Email you've used at sign up
+                </FormDescription>
+              )}
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="password"
+                  type="password"
+                  {...field}
+                ></Input>
+              </FormControl>
+              {fieldState.error ? (
+                <FormMessage className="text-xs"></FormMessage>
+              ) : (
+                <FormDescription className="text-xs">
+                  Use strong password and don't write it down on a sticky{' '}
+                  <span role="img" aria-label="eyes on you">
+                    note&nbsp;👀
+                  </span>
+                </FormDescription>
+              )}
+            </FormItem>
+          )}
+        />
+        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+
+        <Button type="submit">Sign in</Button>
+      </form>
+    </Form>
   );
 };

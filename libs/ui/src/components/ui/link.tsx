@@ -5,8 +5,9 @@ export function Link({
   children,
   href,
   ...props
-}: React.PropsWithChildren<LinkProps> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+}: React.PropsWithChildren<
+  LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>
+>) {
   return (
     <ThemedLink asChild>
       <NextLink {...props} href={href}>

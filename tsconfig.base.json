@@ -19,8 +19,10 @@
       "@physlane/auth/core": ["libs/auth/core/src/index.ts"],
       "@physlane/auth/ui": ["libs/auth/ui/src/index.ts"],
       "@physlane/db": ["libs/db/src/index.ts"],
+      "@physlane/domain": ["libs/domain/src/index.ts"],
       "@physlane/fonts": ["libs/fonts/src/index.ts"],
       "@physlane/ui": ["libs/ui/src/index.ts"],
+      "@physlane/ui/*": ["libs/ui/src/*"],
       "@physlane/ui/utils": ["libs/ui/src/utils.ts"]
     }
   },

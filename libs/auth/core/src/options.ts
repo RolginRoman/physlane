@@ -6,15 +6,11 @@ import { z } from 'zod';
 import { JWT } from 'next-auth/jwt';
 import { User as DbUser, Account } from '@prisma/client';
 import { compareSync } from 'bcryptjs';
-
-const CredentialsSchema = z.object({
-  email: z.string(),
-  password: z.string(),
-});
+import { UserBaseCredentials } from '@physlane/domain';
 
 const isSameUser = (
   user: (DbUser & { accounts: Account[] }) | null,
-  credentials: z.infer<typeof CredentialsSchema>
+  credentials: z.infer<typeof UserBaseCredentials>
 ): boolean => {
   const credentialsAccount = user?.accounts?.[0];
   if (!user || !credentialsAccount) {
@@ -71,7 +67,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       async authorize(credentials) {
         const userCredentials =
-          CredentialsSchema.passthrough().safeParse(credentials);
+          UserBaseCredentials.passthrough().safeParse(credentials);
         if (!userCredentials.success) {
           console.log('Failed parsing schema');
           return null;
