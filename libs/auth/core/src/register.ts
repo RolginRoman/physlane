@@ -1,18 +1,10 @@
 import { db } from '@physlane/db';
 import { hash } from 'bcryptjs';
 import { z } from 'zod';
+import { NewUser } from '@physlane/domain';
 
-const Payload = z.object({
-  email: z
-    .string()
-    .email()
-    .transform((email) => email.toLocaleLowerCase()),
-  name: z.string(),
-  password: z.string().min(3),
-});
-
-export async function register(payload: z.infer<typeof Payload>) {
-  const parsed = Payload.safeParse(payload);
+export async function register(payload: z.infer<typeof NewUser>) {
+  const parsed = NewUser.safeParse(payload);
   if (!parsed.success) {
     throw new Error(`Invalid payload format: ${JSON.stringify(payload)}`);
   }

@@ -22,8 +22,9 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Theme>
+        <Theme className="flex flex-col min-h-screen">
           <Header></Header>
+
           {children}
         </Theme>
       </body>
