@@ -8,6 +8,7 @@ import { RedirectType } from 'next/dist/client/components/redirect';
 type FallbackHandler = string;
 type Predicate = 'authorized' | 'unauthorized';
 type ComponentType<T = any> = React.ComponentType<T>;
+// type ComponentType<T = any> = JSX.Element;
 
 const Auth = <C extends ComponentType>(
   Component: C,

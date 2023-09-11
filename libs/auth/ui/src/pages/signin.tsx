@@ -13,7 +13,7 @@ import {
   Input,
 } from '@physlane/ui';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
@@ -62,6 +62,7 @@ const OAuthProvider = ({
 
 const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const form = useForm<z.infer<typeof UserBaseCredentials>>({
     defaultValues: {
@@ -81,8 +82,9 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
     password,
   }: z.infer<typeof UserBaseCredentials>) {
     try {
+      const redirectUrl = searchParams.get('redirectUrl') ?? undefined;
       const res = await signIn('credentials', {
-        callbackUrl: '/',
+        callbackUrl: redirectUrl,
         email,
         password,
         redirect: true, // TODO is it possible to refresh server side session after login? https://github.com/nextauthjs/next-auth/issues/8254

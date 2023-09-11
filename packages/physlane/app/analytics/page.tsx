@@ -8,13 +8,24 @@ import { LineChart } from '../components/linechart';
 import { LogMeasure } from './log-measure';
 import { WeightTable } from './weight-table';
 import { columns } from './weight-table-columns';
+import _groupBy from 'lodash/groupBy';
+import { z } from 'zod';
+import { redirect } from 'next/navigation';
+import { RedirectType } from 'next/dist/client/components/redirect';
+import { api } from '@physlane/api';
 
-const api = ky.create({
-  prefixUrl: `${process.env.BASE_URL}/api`,
+const modes = ['graph', 'table'] as const;
+const Params = z.object({
+  mode: z.enum(modes),
 });
+async function Analytics({ params }: { params: z.infer<typeof Params> }) {
+  params.mode = 'graph';
+  // const parse = Params.safeParse(params);
+  // if (!parse.success) {
 
-async function Analytics() {
-  // TODO show grouped by date ( average? )
+  //   // redirect('graph', RedirectType.replace);
+  // }
+  // TODO show grouped by date ( average? ) only for graph
   const result = await api
     .get(`analytics/weight?from=${new Date().toISOString()}`, {
       headers: headers(),
@@ -27,10 +38,10 @@ async function Analytics() {
     });
 
   return (
-    <>
+    <main className=" max-w-screen-lg pt-8 p-4 lg:p-0">
       <LogMeasure></LogMeasure>
       {result && (
-        <Tabs defaultValue="graph">
+        <Tabs defaultValue={params.mode}>
           <TabsList>
             <TabsTrigger value="graph">Graph</TabsTrigger>
             <TabsTrigger value="table">Table</TabsTrigger>
@@ -52,7 +63,7 @@ async function Analytics() {
           </TabsContent>
         </Tabs>
       )}
-    </>
+    </main>
   );
 }
 

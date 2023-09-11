@@ -6,7 +6,7 @@ export const Weight = z.object({
   createdAt: z.coerce.date(),
   id: z.string(),
   measure: z.enum(Measure),
-  weight: z.coerce.number().min(0),
+  weight: z.coerce.number().min(1),
 });
 
 export const CreateWeight = Weight.merge(

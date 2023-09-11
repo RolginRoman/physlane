@@ -1,5 +1,6 @@
 'use client';
 
+import { api } from '@physlane/api';
 import { Weight } from '@physlane/domain';
 import { Badge, Button, Icons } from '@physlane/ui';
 import { Text } from '@radix-ui/themes';
@@ -7,9 +8,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { z } from 'zod';
 
 const deleteEntry = async (id: z.infer<typeof Weight>['id']) => {
-  await fetch(`http://localhost:3000/api/analytics/weight/${id}`, {
-    method: 'DELETE',
-  }).catch((error) => {
+  await api.delete(`analytics/weight/${id}`).catch((error) => {
     console.error(error);
     return null;
   });
@@ -33,7 +32,7 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
     accessorKey: 'createdAt',
     cell: ({ row }) => {
       const { createdAt } = row.original;
-      const date = new Intl.DateTimeFormat().format(createdAt);
+      const date = new Intl.DateTimeFormat('en-US').format(createdAt);
       return (
         <div className="flex justify-between">
           <Text>{date}</Text>

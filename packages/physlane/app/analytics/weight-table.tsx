@@ -1,20 +1,13 @@
 'use client';
 
-import { Weight } from '@physlane/domain';
 import {
   Table,
-  Badge,
-  TableHeader,
-  TableRow,
   TableBody,
   TableCell,
-  Button,
-  TableCaption,
   TableHead,
-  Icons,
+  TableHeader,
+  TableRow
 } from '@physlane/ui';
-import { Text } from '@radix-ui/themes';
-import { z } from 'zod';
 import {
   ColumnDef,
   flexRender,

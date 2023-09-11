@@ -84,6 +84,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const _longResponse = await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
   const unsafeBody = await req.json();
   const body = CreateWeight.passthrough().safeParse(unsafeBody);
   const currentUser = await getUser();

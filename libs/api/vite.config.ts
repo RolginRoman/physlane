@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
@@ -15,15 +15,15 @@ export default defineConfig({
       // Don't forget to update your package.json as well.
       formats: ['es', 'cjs'],
       // Change this to the formats you want to support.
-      name: 'db',
+      name: 'api',
     },
     rollupOptions: {
       // External packages that should not be bundled into your library.
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [],
     },
   },
 
-  cacheDir: '../../../node_modules/.vite/db',
+  cacheDir: '../../node_modules/.vite/api',
 
   // Uncomment this if you are using workers.
   // worker: {
@@ -37,6 +37,7 @@ export default defineConfig({
       skipDiagnostics: true,
       tsConfigFilePath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
+
     nxViteTsPaths(),
   ],
 });
