@@ -1,12 +1,12 @@
-import { NextAuthOptions, User, Session } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import { db } from '@physlane/db';
-import { z } from 'zod';
-import { JWT } from 'next-auth/jwt';
-import { User as DbUser, Account } from '@prisma/client';
-import { compareSync } from 'bcryptjs';
 import { UserBaseCredentials } from '@physlane/domain';
+import { Account, User as DbUser } from '@prisma/client';
+import { compareSync } from 'bcryptjs';
+import { NextAuthOptions, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { z } from 'zod';
 
 const isSameUser = (
   user: (DbUser & { accounts: Account[] }) | null,

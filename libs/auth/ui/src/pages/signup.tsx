@@ -60,12 +60,6 @@ const SignUpForm = () => {
         }),
         method: 'POST',
       });
-      // const res = await signIn('credentials', {
-      //   callbackUrl: '/',
-      //   email,
-      //   password,
-      //   redirect: true, // TODO is it possible to refresh server side session after login? https://github.com/nextauthjs/next-auth/issues/8254
-      // });
 
       if (res.ok) {
         router.push((await res.json()).redirectUrl);

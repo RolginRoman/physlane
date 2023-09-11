@@ -1,8 +1,33 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "esnext",
+    "lib": ["es2020", "ES2021.Intl", "ES2021", "ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "typeRoots": ["./types", "./node_modules/@types", "./node_modules/vite"],
+    "paths": {
+      "@physlane/auth/core": ["libs/auth/core/src/index.ts"],
+      "@physlane/auth/ui": ["libs/auth/ui/src/index.ts"],
+      "@physlane/db": ["libs/db/src/index.ts"],
+      "@physlane/domain": ["libs/domain/src/index.ts"],
+      "@physlane/fonts": ["libs/fonts/src/index.ts"],
+      "@physlane/ui": ["libs/ui/src/index.ts"],
+      "@physlane/ui/*": ["libs/ui/src/*"],
+      "@physlane/ui/utils": ["libs/ui/src/utils.ts"]
+    }
   },
-  "extends": "./tsconfig.base.json"
+  "exclude": ["node_modules", "tmp"]
 }

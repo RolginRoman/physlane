@@ -21,7 +21,7 @@ async function SignInPage() {
       csrfToken={csrfToken}
     >
       <Text size={'2'} weight={'medium'} className="text-muted-foreground">
-        Don't have an account?
+        Don&apos;t have an account?
       </Text>
       <Text size={'2'} weight={'medium'}>
         <Link href="/signup" className="block">

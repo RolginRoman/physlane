@@ -2,9 +2,9 @@ import '@radix-ui/themes/styles.css';
 import './global.css';
 
 import { fontSans } from '@physlane/fonts';
-import { cn } from '@physlane/ui';
+import { Toaster, cn } from '@physlane/ui';
 import { Theme } from '@radix-ui/themes';
-import Header from '../src/components/header';
+import Header from './components/header';
 
 export const metadata = {
   description: 'One of the kind',
@@ -27,6 +27,7 @@ export default function RootLayout({
 
           {children}
         </Theme>
+        <Toaster />
       </body>
     </html>
   );
