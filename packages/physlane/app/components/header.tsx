@@ -7,7 +7,7 @@ export default function Header() {
     <header className="flex p-4 sticky justify-between">
       <div className="flex items-center">
         <Logo width={124} full></Logo>
-        <Menu className="pl-6 flex items-center"></Menu>
+        <Menu className="pl-6 h-full flex items-end"></Menu>
       </div>
       <div className="flex items-center">
         <UserMenu></UserMenu>

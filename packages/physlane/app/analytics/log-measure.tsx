@@ -1,4 +1,6 @@
 'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Weight } from '@physlane/domain';
 import {
   Button,
   Dialog,
@@ -10,21 +12,44 @@ import {
   DialogTrigger,
 } from '@physlane/ui';
 import { useState } from 'react';
-import { WeightForm } from './weight-form';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
-import { Weight } from '@physlane/domain';
+import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { WeightForm } from './weight-form';
+import { api } from '@physlane/api';
+
+const FormSchema = Weight.merge(
+  z.object({
+    id: z.string().optional(),
+  })
+);
 
 export function LogMeasure() {
   const [opened, setDialogOpen] = useState(false);
-  const submitWeightForm = useForm<Omit<z.infer<typeof Weight>, 'id'>>();
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    defaultValues: {
+      createdAt: new Date(),
+      measure: 'KG',
+      weight: 10,
+    },
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+    // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
+    resolver: zodResolver(FormSchema, {
+      errorMap: (error, ctx) => {
+        return { message: ctx.defaultError };
+      },
+    }),
+  });
 
   const createNewEntry = async () => {
-    const values: Omit<z.infer<typeof Weight>, 'id'> = {} as any; // getValuesFromForm();
+    if (!form.formState.isValid) {
+      return;
+    }
+    const values: Omit<z.infer<typeof Weight>, 'id'> = form.getValues(); // getValuesFromForm();
 
-    const response = await fetch('http://localhost:3000/api/analytics/weight', {
-      body: JSON.stringify(values),
-      method: 'POST',
+    const response = await api.post('analytics/weight', {
+      json: values,
     });
     if (!response.ok) {
       // TODO handle error
@@ -50,8 +75,8 @@ export function LogMeasure() {
             correct it later within personal report.
           </DialogDescription>
         </DialogHeader>
-        <FormProvider {...submitWeightForm}>
-          <WeightForm lastRecord={undefined}></WeightForm>
+        <FormProvider {...form}>
+          <WeightForm onSubmit={() => createNewEntry()}></WeightForm>
         </FormProvider>
         <DialogFooter>
           <Button onClick={() => createNewEntry()}>Save</Button>

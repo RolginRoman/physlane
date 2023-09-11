@@ -4,12 +4,11 @@ import { cn } from '@physlane/ui';
 import React, { ReactNode } from 'react';
 import {
   LineChart as ChartsLineChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
   Line,
   ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
 
 const dateTimeFormat = new Intl.DateTimeFormat();
@@ -42,14 +41,18 @@ export default function LineChart<T extends ChartDataItem>({
           width={400}
           height={400}
           data={data}
-          margin={{ bottom: 5, left: 12, right: 12, top: 5 }}
+          margin={{ bottom: 5, left: 0, right: 12, top: 5 }}
         >
           <XAxis
             dataKey={xDataKey}
             tickFormatter={dateFormatter}
             tick={{ fontSize: 12 }}
           />
-          <YAxis dataKey={yDataKey} tick={{ fontSize: 12 }} />
+          <YAxis
+            dataKey={yDataKey}
+            tick={{ fontSize: 12 }}
+            domain={['dataMin - 10', 'dataMax + 5']}
+          />
 
           <Tooltip
             content={({
@@ -106,7 +109,7 @@ export default function LineChart<T extends ChartDataItem>({
             }
             activeDot={{
               r: 6,
-              style: { fill: 'var(--theme-primary)', opacity: 0.25 },
+              style: { fill: 'var(--theme-primary)', opacity: 0.55 },
             }}
           />
         </ChartsLineChart>

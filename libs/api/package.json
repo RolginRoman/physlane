@@ -1,0 +1,14 @@
+{
+  "name": "@physlane/api",
+  "version": "0.0.1",
+  "dependencies": {},
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "typings": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  }
+}
