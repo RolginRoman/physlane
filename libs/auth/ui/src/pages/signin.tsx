@@ -14,11 +14,11 @@ import {
 } from '@physlane/ui';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
 import { z } from 'zod';
 import { Layout } from './base';
-import React from 'react';
 
 export function SignIn({
   children,
@@ -135,6 +135,7 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
               <FormControl>
                 <Input
                   placeholder="password"
+                  autoComplete="current-password"
                   type="password"
                   {...field}
                 ></Input>

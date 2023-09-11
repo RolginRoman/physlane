@@ -1,3 +1,4 @@
+import { usePathname } from 'next/navigation';
 import { getUser } from './user';
 import * as React from 'react';
 import { redirect } from 'next/navigation';
@@ -13,6 +14,7 @@ const Auth = <C extends ComponentType>(
   handler: FallbackHandler = '/',
   predicate: Predicate
 ) => {
+  // const initialPathName = usePathname();
   return async (props: React.ComponentPropsWithRef<C>) => {
     const user = await getUser();
 
@@ -26,7 +28,12 @@ const Auth = <C extends ComponentType>(
     }
 
     // TODO resolve callback URL to continue flow after registration
-    redirect(handler, RedirectType.replace);
+    const redirectTo = '/';
+
+    redirect(
+      `${handler}?redirectUrl=${encodeURIComponent(redirectTo)}`,
+      RedirectType.replace
+    );
   };
 };
 
