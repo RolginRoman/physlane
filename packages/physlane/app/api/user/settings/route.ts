@@ -13,7 +13,7 @@ export async function GET() {
 
   const settings = await db.setting.findMany({
     where: {
-      userId: (currentUser as any).id,
+      userId: currentUser.id,
     },
     orderBy: {
       updatedAt: "desc",
@@ -67,14 +67,9 @@ export async function PATCH(req: NextRequest) {
     },
   });
 
-  console.log(existingSettings);
-
   const [toUpdate, toCreate] = _partition(settings, ([settingName]) =>
     existingSettings.find(({ name }) => name === settingName)
   );
-
-  console.log(toCreate);
-  console.log(toUpdate);
 
   const updateQueries = (toUpdate ?? []).map(([name, value]) => {
     return db.setting.update({

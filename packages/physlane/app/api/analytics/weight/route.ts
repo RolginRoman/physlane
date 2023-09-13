@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
         },
       },
       where: {
-        userId: (currentUser as any).id,
+        userId: currentUser.id,
       },
     })) satisfies z.infer<typeof Report> | null;
 
@@ -124,10 +124,10 @@ export async function POST(req: NextRequest) {
         reportAggregator: {
           connectOrCreate: {
             create: {
-              userId: (currentUser as any).id,
+              userId: currentUser.id,
             },
             where: {
-              userId: (currentUser as any).id,
+              userId: currentUser.id,
             },
           },
         },
