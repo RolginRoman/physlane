@@ -5,6 +5,7 @@ import { fontSans } from '@physlane/fonts';
 import { Toaster, cn } from '@physlane/ui';
 import { Theme } from '@radix-ui/themes';
 import Header from './components/header';
+import Providers from './providers';
 
 export const metadata = {
   description: 'One of the kind',
@@ -22,11 +23,13 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Theme className="flex flex-col min-h-screen">
-          <Header></Header>
+        <Providers>
+          <Theme className="flex flex-col min-h-screen">
+            <Header></Header>
 
-          {children}
-        </Theme>
+            {children}
+          </Theme>
+        </Providers>
         <Toaster />
       </body>
     </html>

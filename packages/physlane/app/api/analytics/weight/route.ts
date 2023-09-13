@@ -21,6 +21,9 @@ const withContext = async (
 };
 
 export async function GET(req: NextRequest) {
+  const _longResponse = await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
   const searchParams = getQueryParams(req);
   const queryFilters = {
     from: searchParams.get('from'),

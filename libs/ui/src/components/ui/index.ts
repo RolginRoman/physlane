@@ -15,6 +15,7 @@ export * from './link';
 export * from './popover';
 export * from './select';
 export * from './separator';
+export * from './spinner';
 export * from './table';
 export * from './tabs';
 export * from './toast';
