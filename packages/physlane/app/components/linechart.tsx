@@ -7,12 +7,15 @@ import {
   Line,
   ResponsiveContainer,
   Tooltip,
+  TooltipProps,
   XAxis,
   YAxis,
 } from 'recharts';
 import _groupBy from 'lodash/groupBy';
 import { Text } from '@radix-ui/themes';
+import { DataKey } from 'recharts/types/util/types';
 
+type Grouped<T extends object> = T & { __entries: T[] };
 const dateTimeFormat = new Intl.DateTimeFormat();
 export type ChartDataItem<T = ReactNode | Date> = Record<string, T>;
 
@@ -38,13 +41,13 @@ export default function LineChart<T extends ChartDataItem>({
   xDataKey: keyof T; //Pick<React.ComponentProps<typeof XAxis>, 'dataKey'>;
   yDataKey: keyof T; //Pick<React.ComponentProps<typeof YAxis>, 'dataKey'>;
 }) {
-  const groupedByDay: (T & { __entries: T[] })[] = useMemo(() => {
+  const groupedByDay: Grouped<T>[] = useMemo(() => {
     const result = _groupBy(data, (item) =>
       Math.floor((item.createdAt as Date).getTime() / millisecondInDay)
     );
     return Object.values(result).map((groupedByDayItems) => {
-      const lastEntry = groupedByDayItems[groupedByDayItems.length - 1]!;
-      (lastEntry as any).__entries = groupedByDayItems;
+      const lastEntry = groupedByDayItems[groupedByDayItems.length - 1];
+      ((lastEntry ?? {}) as any).__entries = groupedByDayItems;
       return lastEntry as T & { __entries: T[] };
     });
   }, [data]);
@@ -59,68 +62,27 @@ export default function LineChart<T extends ChartDataItem>({
           margin={{ bottom: 5, left: 0, right: 12, top: 5 }}
         >
           <XAxis
-            dataKey={xDataKey}
+            dataKey={xDataKey as DataKey<T>}
             tickFormatter={dateFormatter}
             tick={{ fontSize: 12 }}
           />
           <YAxis
-            dataKey={yDataKey}
+            dataKey={yDataKey as DataKey<T>}
             tick={{ fontSize: 12 }}
             domain={['dataMin - 10', 'dataMax + 5']}
           />
 
           <Tooltip
-            content={({
-              active,
-              label,
-              payload,
-            }: {
-              active?: boolean;
-              payload?: { payload: T & { __entries: T[] } }[];
-              label?: string;
-            }) => {
-              if (active && payload && payload.length) {
-                const item = payload[0]?.payload;
-                const entries = item?.__entries;
-                return (
-                  <div className="rounded-lg border bg-background p-2 shadow-sm">
-                    <div className="grid grid-cols-2 gap-2">
-                      {label && (
-                        <div className="flex flex-col">
-                          <span className="text-[0.70rem] uppercase text-muted-foreground">
-                            Date
-                          </span>
-                          <span className="font-bold text-muted-foreground">
-                            {`${dateTimeFormat.format(Date.parse(label))}`}
-                          </span>
-                        </div>
-                      )}
-                      <div className="flex flex-col">
-                        <span className="text-[0.70rem] uppercase text-muted-foreground">
-                          Weight
-                        </span>
-                        <span className="font-bold">{item?.weight ?? '-'}</span>
-                      </div>
-                      {entries?.length > 1 && (
-                        <Text className="col-span-2 text-xs">
-                          You've added{' '}
-                          <Badge variant={'secondary'} className="px-1 py-0">
-                            {entries?.length}
-                          </Badge>{' '}
-                          entries. You see only the last one here.
-                        </Text>
-                      )}
-                    </div>
-                  </div>
-                );
-              }
-
-              return null;
-            }}
+            content={(
+              props: TooltipProps<
+                number | string | Array<string | number>,
+                number | string
+              >
+            ) => <LineTooltip tooltipProps={props} />}
           />
 
           <Line
-            dataKey={yDataKey}
+            dataKey={yDataKey as DataKey<T>}
             type="monotone"
             strokeWidth={2}
             yAxisId={0}
@@ -133,13 +95,57 @@ export default function LineChart<T extends ChartDataItem>({
             }
             activeDot={{
               r: 6,
-              style: { fill: 'var(--theme-primary)', opacity: 0.55 },
+              style: { fill: 'var(--theme-primary)', opacity: 0.95 },
             }}
           />
         </ChartsLineChart>
       </ResponsiveContainer>
     </div>
   );
+}
+
+function LineTooltip<T extends number | string | Array<string | number>>({
+  tooltipProps,
+}: {
+  tooltipProps: TooltipProps<T, number | string>;
+}) {
+  const { active, payload, label } = tooltipProps;
+  // console.log(tooltipProps);
+  if (active && payload && payload.length) {
+    const item = payload[0]?.payload;
+    const entries = item?.__entries;
+    return (
+      <div className="rounded-lg border bg-background p-2 shadow-sm">
+        <div className="grid grid-cols-2 gap-2">
+          {label && (
+            <div className="flex flex-col">
+              <span className="text-[0.70rem] uppercase text-muted-foreground">
+                Date
+              </span>
+              <span className="font-bold text-muted-foreground">
+                {`${dateTimeFormat.format(Date.parse(label))}`}
+              </span>
+            </div>
+          )}
+          <div className="flex flex-col">
+            <span className="text-[0.70rem] uppercase text-muted-foreground">
+              Weight
+            </span>
+            <span className="font-bold">{item?.weight ?? '-'}</span>
+          </div>
+          {(entries?.length ?? 0) > 1 && (
+            <Text className="col-span-2 text-xs">
+              <Badge variant={'secondary'} className="px-1 py-0">
+                {entries?.length}
+              </Badge>{' '}
+              entries were added. You see only the last one here.
+            </Text>
+          )}
+        </div>
+      </div>
+    );
+  }
+  return null;
 }
 
 export { LineChart };

@@ -2,10 +2,11 @@ import { Options, api } from '@physlane/api';
 import { Report, Weight, CreateWeight } from '@physlane/domain';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
+import { queryKeys } from '../query-keys';
 
 export const loadReport = (options?: Options) => {
   return api
-    .get(`analytics/weight?from=${new Date().toISOString()}`, options)
+    .get(`analytics/weight`, options)
     .json()
     .then((data) => Report.parse(data));
 };
@@ -13,7 +14,7 @@ export const loadReport = (options?: Options) => {
 export const useReport = () => {
   return useQuery({
     queryFn: loadReport,
-    queryKey: ['report'],
+    queryKey: queryKeys.report,
     keepPreviousData: true,
   });
 };
@@ -31,12 +32,12 @@ export const useDeleteEntry = (entryId: string) => {
     mutationFn: () => deleteWeightEntry(entryId),
     retry: 0,
     onSuccess: async () => {
-      await queryClient.cancelQueries({ queryKey: ['report'] });
+      await queryClient.cancelQueries({ queryKey: queryKeys.report });
     },
     onSettled: async () => {
       await new Promise<void>((resolve) => {
         setTimeout(() => {
-          queryClient.invalidateQueries({ queryKey: ['report'] });
+          queryClient.invalidateQueries({ queryKey: queryKeys.report });
           resolve();
         }, 1000);
       });
@@ -63,10 +64,10 @@ export const useCreateWeightEntry = () => {
       createWeightEntry(values, { signal: undefined }),
     retry: 0,
     onSuccess: async () => {
-      await queryClient.cancelQueries({ queryKey: ['report'] });
+      await queryClient.cancelQueries({ queryKey: queryKeys.report });
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['report'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.report });
     },
   });
 };
