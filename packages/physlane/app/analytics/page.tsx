@@ -3,26 +3,26 @@ import { Hydrate, dehydrate } from '@tanstack/react-query';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 import getQueryClient from '../query-client';
+import { AnalyticsContent } from './analytics-content';
 import { loadReport } from './data';
 import { Params } from './view-model';
-import { AnalyticsContent } from './content';
 
-async function Analytics({ params }: { params: z.infer<typeof Params> }) {
-  params.mode = 'graph';
-
+async function Analytics({
+  searchParams,
+}: {
+  searchParams: z.infer<typeof Params>;
+}) {
+  searchParams = Params.passthrough().parse(searchParams);
   const queryClient = getQueryClient();
-  queryClient.prefetchQuery({
-    queryFn: () => {
-      console.log('prefetched report');
-      return loadReport({ headers: headers() });
-    },
+  await queryClient.prefetchQuery({
+    queryFn: () => loadReport({ headers: headers() }),
     queryKey: ['report'],
   });
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <Hydrate state={dehydratedState}>
-      <AnalyticsContent mode={params.mode}></AnalyticsContent>
+      <AnalyticsContent mode={searchParams.mode}></AnalyticsContent>
     </Hydrate>
   );
 }

@@ -16,7 +16,7 @@ export default function RootLayout({
   children,
 }: React.PropsWithChildren<void>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
@@ -24,9 +24,8 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <Theme className="flex flex-col min-h-screen">
+          <Theme className='flex flex-col min-h-screen'>
             <Header></Header>
-
             {children}
           </Theme>
         </Providers>
