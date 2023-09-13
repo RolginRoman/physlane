@@ -6,7 +6,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@physlane/ui';
 import {
   ColumnDef,
@@ -77,45 +77,3 @@ export function WeightTable<TData, TValue>({
     </div>
   );
 }
-
-// export const WeightTable = ({ data }: { data: z.infer<typeof Weight>[] }) => {
-//   return (
-//     <Table>
-//       <colgroup>
-//         <col style={{ width: '50%' } as React.CSSProperties} />
-//         <col style={{ width: '30%' } as React.CSSProperties} />
-//         <col style={{ width: '20%' } as React.CSSProperties} />
-//       </colgroup>
-//       <TableCaption>Entries</TableCaption>
-//       <TableHeader>
-//         <TableRow>
-//           <TableHead>Weight</TableHead>
-//           <TableHead>Date</TableHead>
-//           <TableHead></TableHead>
-//         </TableRow>
-//       </TableHeader>
-//       <TableBody>
-//         {data.map((entry) => {
-//           return (
-//             <TableRow key={entry.id}>
-//               <TableCell>
-//                 <div className="flex justify-between">
-//                   <Text>{entry.weight}</Text>
-//                   <Badge>{entry.measure}</Badge>
-//                 </div>
-//               </TableCell>
-//               <TableCell>{entry.createdAt.toISOString()}</TableCell>
-//               <TableCell>
-//                 <div className="flex justify-end">
-//                   <Button variant={'destructive'} size={'icon'}>
-//                     <Icons.DeleteEntry />
-//                   </Button>
-//                 </div>
-//               </TableCell>
-//             </TableRow>
-//           );
-//         })}
-//       </TableBody>
-//     </Table>
-//   );
-// };

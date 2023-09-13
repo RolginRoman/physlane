@@ -14,8 +14,8 @@ import {
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useCreateWeightEntry } from './data';
 import { WeightForm } from './weight-form';
-import { api } from '@physlane/api';
 
 const FormSchema = Weight.merge(
   z.object({
@@ -25,6 +25,7 @@ const FormSchema = Weight.merge(
 
 export function LogMeasure() {
   const [opened, setDialogOpen] = useState(false);
+  const { mutateAsync: createEntryAsync, isLoading } = useCreateWeightEntry();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     defaultValues: {
@@ -48,18 +49,12 @@ export function LogMeasure() {
     }
     const values: Omit<z.infer<typeof Weight>, 'id'> = form.getValues(); // getValuesFromForm();
 
-    const response = await api.post('analytics/weight', {
-      json: values,
-    });
-    if (!response.ok) {
-      // TODO handle error
-      return;
+    try {
+      await createEntryAsync(values);
+      setDialogOpen(false);
+    } catch (error: unknown) {
+      console.error(error);
     }
-
-    const body = await response.json();
-
-    // TODO optimistic report update state
-    setDialogOpen(false);
   };
 
   return (
@@ -79,7 +74,13 @@ export function LogMeasure() {
           <WeightForm onSubmit={() => createNewEntry()}></WeightForm>
         </FormProvider>
         <DialogFooter>
-          <Button onClick={() => createNewEntry()}>Save</Button>
+          <Button
+            disabled={isLoading}
+            spinner={isLoading}
+            onClick={() => createNewEntry()}
+          >
+            Save
+          </Button>
           <Button variant={'secondary'} onClick={() => setDialogOpen(false)}>
             Cancel
           </Button>

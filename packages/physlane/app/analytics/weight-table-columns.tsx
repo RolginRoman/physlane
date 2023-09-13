@@ -1,18 +1,11 @@
 'use client';
 
-import { api } from '@physlane/api';
 import { Weight } from '@physlane/domain';
 import { Badge, Button, Icons } from '@physlane/ui';
 import { Text } from '@radix-ui/themes';
 import { ColumnDef } from '@tanstack/react-table';
 import { z } from 'zod';
-
-const deleteEntry = async (id: z.infer<typeof Weight>['id']) => {
-  await api.delete(`analytics/weight/${id}`).catch((error) => {
-    console.error(error);
-    return null;
-  });
-};
+import { useDeleteEntry } from './data';
 
 export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
   {
@@ -43,19 +36,26 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
   },
   {
     cell: ({ row }) => {
-      return (
-        <div className="flex justify-end">
-          <Button
-            variant={'destructive'}
-            size={'icon'}
-            onClick={() => deleteEntry(row.original.id)}
-          >
-            <Icons.DeleteEntry />
-          </Button>
-        </div>
-      );
+      return <DeleteButton entryId={row.original.id}></DeleteButton>;
     },
     header: '',
     id: 'actions',
   },
 ];
+
+function DeleteButton({ entryId }: { entryId: string }) {
+  const { isLoading, mutate } = useDeleteEntry(entryId);
+  return (
+    <div className="flex justify-end">
+      <Button
+        disabled={isLoading}
+        spinner={isLoading}
+        variant={'destructive'}
+        size={'icon'}
+        onClick={() => mutate()}
+      >
+        <Icons.DeleteEntry />
+      </Button>
+    </div>
+  );
+}
