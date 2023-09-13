@@ -24,7 +24,7 @@ export async function DELETE(
         id: params.entryId,
         reportAggregator: {
           is: {
-            userId: (currentUser as any).id,
+            userId: currentUser.id,
           },
         },
       },
