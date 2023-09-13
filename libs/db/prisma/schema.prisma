@@ -55,8 +55,25 @@ model User {
   accounts         Account[]
   sessions         Session[]
   reportAggregator ReportAggregator?
+  settings         Setting[]
 
   @@index([id, email])
+}
+
+model Setting {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  value       Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@index([userId])
 }
 
 model ReportAggregator {
@@ -71,15 +88,18 @@ model ReportAggregator {
 }
 
 enum Measure {
-  KG
-  LBS
+  kg
+  lb
 }
 
 model WeightEntry {
-  id        String   @id @default(cuid())
-  weight    Float
-  measure   Measure  @default(KG)
+  id          String   @id @default(cuid())
+  weight      Float
+  measure     Measure  @default(kg)
+  measureDate DateTime @default(now())
+
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   reportAggregator   ReportAggregator @relation(fields: [reportAggregatorId], references: [id])
   reportAggregatorId String

@@ -1,14 +1,17 @@
 import { z } from 'zod';
 
-export const Measure = ['KG', 'LBS'] as const;
+export const ALL_MEASURES = ['kg', 'lb'] as const;
+export type Measures = (typeof ALL_MEASURES)[number];
+export const Measure = z.enum(ALL_MEASURES);
 
 export const Weight = z.object({
   createdAt: z.coerce.date(),
   id: z.string(),
-  measure: z.enum(Measure),
+  measure: Measure,
+  measureDate: z.coerce.date(),
   weight: z.coerce.number().min(1),
 });
 
 export const CreateWeight = Weight.merge(
-  z.object({ id: z.string().optional() })
+  Weight.pick({id: true, createdAt: true}).deepPartial()
 );

@@ -18,8 +18,8 @@ export function SignOut() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you leaving?</DialogTitle>
-          <DialogDescription className="pt-4">
-            You're already missing, Champ
+          <DialogDescription className='pt-4'>
+            Miss you already, Champ
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

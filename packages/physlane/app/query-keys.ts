@@ -1,4 +1,6 @@
 export const queryKeys = {
-    report: ['report'],
+  report: ['report'],
 
-}
+  // user
+  userSettings: ['userSettings'],
+};

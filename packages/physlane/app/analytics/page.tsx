@@ -6,6 +6,7 @@ import getQueryClient from '../query-client';
 import { AnalyticsContent } from './analytics-content';
 import { loadReport } from './data';
 import { Params } from './view-model';
+import { queryKeys } from '../query-keys';
 
 async function Analytics({
   searchParams,
@@ -16,7 +17,7 @@ async function Analytics({
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryFn: () => loadReport({ headers: headers() }),
-    queryKey: ['report'],
+    queryKey: queryKeys.report,
   });
   const dehydratedState = dehydrate(queryClient);
 

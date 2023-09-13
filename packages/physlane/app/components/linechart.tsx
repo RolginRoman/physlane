@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { cn, Badge } from '@physlane/ui';
-import React, { ReactNode, useMemo } from 'react';
+import { cn, Badge } from "@physlane/ui";
+import React, { ReactNode, useMemo } from "react";
 import {
   LineChart as ChartsLineChart,
   Line,
@@ -10,10 +10,12 @@ import {
   TooltipProps,
   XAxis,
   YAxis,
-} from 'recharts';
-import _groupBy from 'lodash/groupBy';
-import { Text } from '@radix-ui/themes';
-import { DataKey } from 'recharts/types/util/types';
+  ReferenceLine,
+} from "recharts";
+import _groupBy from "lodash/groupBy";
+import { Text } from "@radix-ui/themes";
+import { DataKey } from "recharts/types/util/types";
+import { useWellKnownSettings } from "../user/data";
 
 type Grouped<T extends object> = T & { __entries: T[] };
 const dateTimeFormat = new Intl.DateTimeFormat();
@@ -21,15 +23,15 @@ export type ChartDataItem<T = ReactNode | Date> = Record<string, T>;
 
 const dateFormatter = (value: string) => {
   return new Intl.DateTimeFormat(undefined, {
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
   }).format(Date.parse(value));
 };
 
 const millisecondInDay = 1000 * 60 * 60 * 24;
 
-export default function LineChart<T extends ChartDataItem>({
+export function LineChart<T extends ChartDataItem>({
   animationStartMs = 0,
   className,
   data,
@@ -53,7 +55,7 @@ export default function LineChart<T extends ChartDataItem>({
   }, [data]);
 
   return (
-    <div className={cn('w-full h-64', className)}>
+    <div className={cn("w-full h-64", className)}>
       <ResponsiveContainer width="100%" height="100%">
         <ChartsLineChart
           width={400}
@@ -69,7 +71,8 @@ export default function LineChart<T extends ChartDataItem>({
           <YAxis
             dataKey={yDataKey as DataKey<T>}
             tick={{ fontSize: 12 }}
-            domain={['dataMin - 10', 'dataMax + 5']}
+            tickFormatter={(value) => `${Math.floor(value)}`}
+            domain={["dataMin - 10", "dataMax + 5"]}
           />
 
           <Tooltip
@@ -81,6 +84,19 @@ export default function LineChart<T extends ChartDataItem>({
             ) => <LineTooltip tooltipProps={props} />}
           />
 
+          {/* <ReferenceLine
+            y={75}
+            label='Goal'
+            strokeWidth={1}
+            strokeDasharray='3 3'
+            style={
+              {
+                '--theme-primary': `hsl(var(--primary))`,
+                stroke: 'var(--theme-primary)',
+              } as React.CSSProperties
+            }
+          /> */}
+
           <Line
             dataKey={yDataKey as DataKey<T>}
             type="monotone"
@@ -89,13 +105,13 @@ export default function LineChart<T extends ChartDataItem>({
             dot={{ clipDot: false, r: 3 }}
             style={
               {
-                '--theme-primary': `hsl(var(--primary))`,
-                stroke: 'var(--theme-primary)',
+                "--theme-primary": `hsl(var(--primary))`,
+                stroke: "var(--theme-primary)",
               } as React.CSSProperties
             }
             activeDot={{
               r: 6,
-              style: { fill: 'var(--theme-primary)', opacity: 0.95 },
+              style: { fill: "var(--theme-primary)", opacity: 0.95 },
             }}
           />
         </ChartsLineChart>
@@ -109,6 +125,7 @@ function LineTooltip<T extends number | string | Array<string | number>>({
 }: {
   tooltipProps: TooltipProps<T, number | string>;
 }) {
+  const settings = useWellKnownSettings();
   const { active, payload, label } = tooltipProps;
   // console.log(tooltipProps);
   if (active && payload && payload.length) {
@@ -131,13 +148,16 @@ function LineTooltip<T extends number | string | Array<string | number>>({
             <span className="text-[0.70rem] uppercase text-muted-foreground">
               Weight
             </span>
-            <span className="font-bold">{item?.weight ?? '-'}</span>
+            <span className="font-bold">
+              {parseFloat(item?.weight.toFixed(1)) ?? "-"}{" "}
+              {settings?.measure && settings.measure}
+            </span>
           </div>
           {(entries?.length ?? 0) > 1 && (
             <Text className="col-span-2 text-xs">
-              <Badge variant={'secondary'} className="px-1 py-0">
+              <Badge variant={"secondary"} className="px-1 py-0">
                 {entries?.length}
-              </Badge>{' '}
+              </Badge>{" "}
               entries were added. You see only the last one here.
             </Text>
           )}
@@ -147,5 +167,3 @@ function LineTooltip<T extends number | string | Array<string | number>>({
   }
   return null;
 }
-
-export { LineChart };

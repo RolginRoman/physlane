@@ -1,5 +1,5 @@
 'use client';
-import { Weight } from '@physlane/domain';
+import { Weight, ALL_MEASURES } from '@physlane/domain';
 import {
   DatePicker,
   Form,
@@ -36,37 +36,37 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
   return (
     <Form {...formContext}>
       <form
-        className="space-y-3 w-full"
+        className='space-y-3 w-full'
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
         }}
       >
-        <div className="flex space-x-3">
+        <div className='flex space-x-3'>
           <FormField
             control={formContext.control}
-            name="weight"
+            name='weight'
             render={({ field, fieldState }) => (
-              <FormItem className="grow-[2]">
+              <FormItem className='grow-[2]'>
                 <FormLabel>Weight</FormLabel>
                 <FormControl>
                   <Input
                     autoFocus
-                    placeholder="Your weight data"
+                    placeholder='Your weight data'
                     {...field}
                   ></Input>
                 </FormControl>
                 {fieldState.error && (
-                  <FormMessage className="text-xs"></FormMessage>
+                  <FormMessage className='text-xs'></FormMessage>
                 )}
               </FormItem>
             )}
           />
           <FormField
             control={formContext.control}
-            name="measure"
+            name='measure'
             render={({ field, fieldState }) => (
-              <FormItem className="grow">
+              <FormItem className='grow'>
                 <FormLabel>Measure</FormLabel>
                 <FormControl>
                   <Select
@@ -75,17 +75,20 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select measure" />
+                        <SelectValue placeholder='Select measure' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="KG">kg</SelectItem>
-                      <SelectItem value="LBS">lbs</SelectItem>
+                      {ALL_MEASURES.map((measure) => (
+                        <SelectItem key={measure} value={measure}>
+                          {measure.toLowerCase()}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </FormControl>
                 {fieldState.error && (
-                  <FormMessage className="text-xs"></FormMessage>
+                  <FormMessage className='text-xs'></FormMessage>
                 )}
               </FormItem>
             )}
@@ -93,9 +96,9 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
         </div>
         <FormField
           control={formContext.control}
-          name="createdAt"
+          name='measureDate'
           render={({ field, fieldState }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className='flex flex-col'>
               <FormLabel>Measure date</FormLabel>
               <FormControl>
                 <DatePicker
@@ -107,7 +110,7 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                 ></DatePicker>
               </FormControl>
               {fieldState.error && (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className='text-xs'></FormMessage>
               )}
             </FormItem>
           )}
