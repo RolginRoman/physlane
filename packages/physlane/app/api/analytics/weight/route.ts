@@ -65,6 +65,7 @@ export async function GET(req: NextRequest) {
             createdAt: true,
             id: true,
             measure: true,
+            measureDate: true,
             weight: true,
           },
         },
@@ -90,8 +91,6 @@ export async function POST(req: NextRequest) {
   // const _longResponse = await new Promise((resolve) => {
   //   setTimeout(resolve, 3000);
   // });
-  const unsafeBody = await req.json();
-  const body = CreateWeight.passthrough().safeParse(unsafeBody);
   const currentUser = await getUser();
 
   if (!currentUser) {
@@ -103,6 +102,9 @@ export async function POST(req: NextRequest) {
       { status: 401 }
     );
   }
+  
+  const unsafeBody = await req.json();
+  const body = CreateWeight.passthrough().safeParse(unsafeBody);
   if (!body.success) {
     return new NextResponse(
       JSON.stringify({

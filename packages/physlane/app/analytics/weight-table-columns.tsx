@@ -13,8 +13,8 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
     cell: ({ row }) => {
       const { measure, weight } = row.original;
       return (
-        <div className="flex justify-between">
-          <Text>{weight}</Text>
+        <div className='flex justify-between'>
+          <Text>{parseFloat(weight.toFixed(1))}</Text>
           <Badge>{measure}</Badge>
         </div>
       );
@@ -27,7 +27,7 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
       const { createdAt } = row.original;
       const date = new Intl.DateTimeFormat('en-US').format(createdAt);
       return (
-        <div className="flex justify-between">
+        <div className='flex justify-between'>
           <Text>{date}</Text>
         </div>
       );
@@ -46,7 +46,7 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
 function DeleteButton({ entryId }: { entryId: string }) {
   const { isLoading, mutate } = useDeleteEntry(entryId);
   return (
-    <div className="flex justify-end">
+    <div className='flex justify-end'>
       <Button
         disabled={isLoading}
         spinner={isLoading}

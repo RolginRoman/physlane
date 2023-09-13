@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
   Link,
 } from '@physlane/ui';
+import { Settings } from './settings';
 
 export default async function UserMenu() {
   const currentUser = await getUser();
@@ -20,25 +21,26 @@ export default async function UserMenu() {
   }
 
   return (
-    <Link href={'/signin'} className="text-slate-800">
+    <Link href={'/signin'} className='text-slate-800'>
       <Icons.Login></Icons.Login>
     </Link>
   );
-
-  // return <Link href={'/signin'}>Sign in</Link>;
 }
 
 function UserMenuDropdown({ user }: { user: Session['user'] }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Icons.User className="text-slate-800 mx-auto h-6 w-6 cursor-pointer" />
+        <Icons.User className='text-slate-800 mx-auto h-6 w-6 cursor-pointer' />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 me-4">
+      <DropdownMenuContent className='w-56 me-4'>
         <DropdownMenuLabel>
-          <Text className="cursor-default">{user?.name}</Text>
+          <Text className='cursor-default'>{user?.name}</Text>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuLabel>
+          <Settings></Settings>
+        </DropdownMenuLabel>
         <DropdownMenuLabel>
           <SignOut></SignOut>
         </DropdownMenuLabel>

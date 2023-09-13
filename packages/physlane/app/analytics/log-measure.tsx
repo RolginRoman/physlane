@@ -1,6 +1,6 @@
-'use client';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Weight } from '@physlane/domain';
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Weight } from "@physlane/domain";
 import {
   Button,
   Dialog,
@@ -10,31 +10,31 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@physlane/ui';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { useCreateWeightEntry } from './data';
-import { WeightForm } from './weight-form';
+} from "@physlane/ui";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
+import { useCreateWeightEntry } from "./data";
+import { WeightForm } from "./weight-form";
+import { useWellKnownSettings } from "../user/data";
 
 const FormSchema = Weight.merge(
-  z.object({
-    id: z.string().optional(),
-  })
+  Weight.pick({ id: true, createdAt: true }).deepPartial()
 );
 
 export function LogMeasure() {
   const [opened, setDialogOpen] = useState(false);
   const { mutateAsync: createEntryAsync, isLoading } = useCreateWeightEntry();
+  const settings = useWellKnownSettings();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     defaultValues: {
-      createdAt: new Date(),
-      measure: 'KG',
+      measureDate: new Date(),
+      measure: settings?.measure ?? "kg",
       weight: 10,
     },
-    mode: 'onTouched',
-    reValidateMode: 'onChange',
+    mode: "onTouched",
+    reValidateMode: "onChange",
     // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(FormSchema, {
       errorMap: (error, ctx) => {
@@ -47,7 +47,7 @@ export function LogMeasure() {
     if (!form.formState.isValid) {
       return;
     }
-    const values: Omit<z.infer<typeof Weight>, 'id'> = form.getValues(); // getValuesFromForm();
+    const values: Omit<z.infer<typeof FormSchema>, "id"> = form.getValues(); // getValuesFromForm();
 
     try {
       await createEntryAsync(values);
@@ -81,7 +81,7 @@ export function LogMeasure() {
           >
             Save
           </Button>
-          <Button variant={'secondary'} onClick={() => setDialogOpen(false)}>
+          <Button variant={"secondary"} onClick={() => setDialogOpen(false)}>
             Cancel
           </Button>
         </DialogFooter>
