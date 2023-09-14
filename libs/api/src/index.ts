@@ -1,2 +1,2 @@
-export * from './api';
-export type { Options } from 'ky-universal';
+export * from "./api";
+export type { Options } from "ky-universal";

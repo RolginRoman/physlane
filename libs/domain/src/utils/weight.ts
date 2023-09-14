@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { Weight } from '../models/weight';
+import { z } from "zod";
+import { Weight } from "../models/weight";
 
 const kgToLbsRatio = 2.20462262185;
 const lbsToKgRatio = 1 / kgToLbsRatio;
@@ -17,7 +17,7 @@ export const convertWeightEntryKgToLb = (
 ): z.infer<typeof Weight> => {
   return {
     ...entry,
-    measure: 'lb',
+    measure: "lb",
     weight: convertKgToLb(entry.weight),
   };
 };
@@ -27,7 +27,7 @@ export const convertWeightEntryLbToKg = (
 ): z.infer<typeof Weight> => {
   return {
     ...entry,
-    measure: 'kg',
+    measure: "kg",
     weight: convertLbToKg(entry.weight),
   };
 };

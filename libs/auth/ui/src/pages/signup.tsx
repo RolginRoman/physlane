@@ -1,6 +1,6 @@
-'use client';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { NewUser } from '@physlane/domain';
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { NewUser } from "@physlane/domain";
 import {
   Button,
   Form,
@@ -11,11 +11,11 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@physlane/ui';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Layout } from './base';
+} from "@physlane/ui";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Layout } from "./base";
 
 export function SignUp({
   children,
@@ -33,9 +33,9 @@ const SignUpForm = () => {
 
   const form = useForm<z.infer<typeof NewUser>>({
     defaultValues: {
-      email: '',
-      name: '',
-      password: '',
+      email: "",
+      name: "",
+      password: "",
     },
     // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(NewUser, {
@@ -51,20 +51,20 @@ const SignUpForm = () => {
     password,
   }: z.infer<typeof NewUser>) {
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch("/api/auth/register", {
         body: JSON.stringify({
           email,
           name,
           password,
-          redirectUrl: '/signin',
+          redirectUrl: "/signin",
         }),
-        method: 'POST',
+        method: "POST",
       });
 
       if (res.ok) {
         router.push((await res.json()).redirectUrl);
       } else {
-        throw new Error('invalid email or password');
+        throw new Error("invalid email or password");
       }
     } catch (error: any) {
       console.error(error);
@@ -132,7 +132,7 @@ const SignUpForm = () => {
                 <FormMessage className="text-xs"></FormMessage>
               ) : (
                 <FormDescription className="text-xs">
-                  Use strong password and don't write it down on a sticky{' '}
+                  Use strong password and don't write it down on a sticky{" "}
                   <span role="img" aria-label="eyes on you">
                     note&nbsp;👀
                   </span>

@@ -8,12 +8,12 @@
 export function wrapper<
   Req extends Request = Request,
   Ext extends DefaultExt = DefaultExt,
-  Res extends Response = Response
+  Res extends Response = Response,
 >(cb: WrapperCallback<Req, Ext, Res>) {
   return function <
     HExt extends DefaultExt = DefaultExt,
     HReq extends Request = Request,
-    HRes extends Response | Promise<Response> = Response
+    HRes extends Response | Promise<Response> = Response,
   >(handler: (req: HReq & Req, ext?: HExt) => HRes) {
     // the new handler
     return (req: HReq & Req, ext?: HExt) => {
@@ -38,11 +38,11 @@ export function wrapper<
  */
 export function merge<
   A extends Wrapper<any, any, any>,
-  B extends Wrapper<any, any, any>
+  B extends Wrapper<any, any, any>,
 >(a: A, b: B) {
   return function <
     Req extends InferReq<A> & InferReq<B>,
-    Res extends Response | Promise<Response>
+    Res extends Response | Promise<Response>,
   >(handler: Handler<Req, DefaultExt, Res>) {
     return a(b(handler));
   };
@@ -55,7 +55,7 @@ export function merge<
  */
 export function stack<A extends Wrapper<any, any, any>>(a: A) {
   const _stack = (handler: InferHandler<A>): typeof handler => a(handler);
-  _stack.kind = 'stack' as const;
+  _stack.kind = "stack" as const;
 
   /**
    * Add a wrapper to the stack
@@ -74,7 +74,7 @@ export function stack<A extends Wrapper<any, any, any>>(a: A) {
  */
 export function chain<A extends Wrapper<any, any, any>>(a: A) {
   const _chain = (handler: InferHandler<A>): typeof handler => a(handler);
-  _chain.kind = 'chain' as const;
+  _chain.kind = "chain" as const;
 
   /**
    * Add a wrapper to the chain
@@ -89,19 +89,19 @@ export type DefaultExt = { params?: unknown };
 export type Wrapper<
   Req extends Request = Request,
   Ext extends DefaultExt = DefaultExt,
-  Res extends Response | Promise<Response> = Response
+  Res extends Response | Promise<Response> = Response,
 > = (h: Handler<Req, Ext, Res>) => Res;
 
 export type Handler<
   Req extends Request = Request,
   Ext extends DefaultExt = DefaultExt,
-  Res extends Response | Promise<Response> = Response
+  Res extends Response | Promise<Response> = Response,
 > = (req: Req, ext?: Ext) => Res;
 
 export type InferReq<
   T extends
     | Wrapper<Request, DefaultExt, Response>
-    | Handler<Request, DefaultExt, Response>
+    | Handler<Request, DefaultExt, Response>,
 > = T extends Wrapper<infer Req, any, any>
   ? Req
   : T extends Handler<infer Req, any, any>
@@ -114,7 +114,7 @@ export type InferHandler<W extends Wrapper<Request, DefaultExt, Response>> =
 export type WrapperCallback<
   Req extends Request = Request,
   Ext extends DefaultExt = DefaultExt,
-  Res extends Response | Promise<Response> = Response
+  Res extends Response | Promise<Response> = Response,
 > = (
   next: (req?: Req, ext?: Ext) => Res | Promise<Res>,
   req: Req,

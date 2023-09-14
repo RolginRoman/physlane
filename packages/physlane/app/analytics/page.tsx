@@ -1,12 +1,12 @@
-import { isAuthorized } from '@physlane/auth/core';
-import { Hydrate, dehydrate } from '@tanstack/react-query';
-import { headers } from 'next/headers';
-import { z } from 'zod';
-import getQueryClient from '../query-client';
-import { AnalyticsContent } from './analytics-content';
-import { loadReport } from './data';
-import { Params } from './view-model';
-import { queryKeys } from '../query-keys';
+import { isAuthorized } from "@physlane/auth/core";
+import { Hydrate, dehydrate } from "@tanstack/react-query";
+import { headers } from "next/headers";
+import { z } from "zod";
+import getQueryClient from "../query-client";
+import { AnalyticsContent } from "./analytics-content";
+import { loadReport } from "./loader";
+import { Params } from "./hooks";
+import { queryKeys } from "../query-keys";
 
 async function Analytics({
   searchParams,
@@ -28,4 +28,4 @@ async function Analytics({
   );
 }
 
-export default isAuthorized(Analytics, '/signin');
+export default isAuthorized(Analytics, "/signin");

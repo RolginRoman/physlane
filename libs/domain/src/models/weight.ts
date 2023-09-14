@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-export const ALL_MEASURES = ['kg', 'lb'] as const;
+export const ALL_MEASURES = ["kg", "lb"] as const;
 export type Measures = (typeof ALL_MEASURES)[number];
 export const Measure = z.enum(ALL_MEASURES);
 
@@ -13,5 +13,5 @@ export const Weight = z.object({
 });
 
 export const CreateWeight = Weight.merge(
-  Weight.pick({id: true, createdAt: true}).deepPartial()
+  Weight.pick({ id: true, createdAt: true }).deepPartial()
 );

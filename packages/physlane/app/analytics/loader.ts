@@ -1,8 +1,8 @@
-import { Options, api } from '@physlane/api';
-import { Report, Weight, CreateWeight } from '@physlane/domain';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { z } from 'zod';
-import { queryKeys } from '../query-keys';
+import { Options, api } from "@physlane/api";
+import { Report, Weight, CreateWeight } from "@physlane/domain";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
+import { queryKeys } from "../query-keys";
 
 export const loadReport = (options?: Options) => {
   return api
@@ -20,7 +20,7 @@ export const useReport = () => {
 };
 
 export const deleteWeightEntry = async (
-  id: z.infer<typeof Weight>['id'],
+  id: z.infer<typeof Weight>["id"],
   options?: Options
 ) => {
   api.delete(`analytics/weight/${id}`, options).json();
@@ -50,7 +50,7 @@ export const createWeightEntry = async (
   options?: Options
 ) => {
   return api
-    .post('analytics/weight', {
+    .post("analytics/weight", {
       ...options,
       json: values,
     })

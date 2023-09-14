@@ -1,6 +1,6 @@
-import { Separator, cn } from '@physlane/ui';
-import * as React from 'react';
-import { AuthErrorToast } from '../errors/toast';
+import { Separator, cn } from "@physlane/ui";
+import * as React from "react";
+import { AuthErrorToast } from "../errors/toast";
 
 export const Layout = React.forwardRef<
   HTMLDivElement,

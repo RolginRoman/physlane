@@ -1,9 +1,9 @@
-import { getUser } from '@physlane/auth/core';
-import { db } from '@physlane/db';
-import { ReportRequest, Weight, CreateWeight, Report } from '@physlane/domain';
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { validated } from '../../../server/validate';
+import { getUser } from "@physlane/auth/core";
+import { db } from "@physlane/db";
+import { ReportRequest, Weight, CreateWeight, Report } from "@physlane/domain";
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { validated } from "../../../server/validate";
 
 const getQueryParams = (req: NextRequest): URLSearchParams => {
   return new URL(req.url).searchParams;
@@ -26,8 +26,8 @@ export async function GET(req: NextRequest) {
   // });
   const searchParams = getQueryParams(req);
   const queryFilters = {
-    from: searchParams.get('from'),
-    to: searchParams.get('to'),
+    from: searchParams.get("from"),
+    to: searchParams.get("to"),
   };
   const body = ReportRequest.passthrough().safeParse({ filters: queryFilters });
   const currentUser = await getUser();
@@ -35,8 +35,8 @@ export async function GET(req: NextRequest) {
   if (!currentUser) {
     return new NextResponse(
       JSON.stringify({
-        message: 'Unauthorized',
-        status: 'error',
+        message: "Unauthorized",
+        status: "error",
       }),
       { status: 401 }
     );
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse(
       JSON.stringify({
         message: body.error.format(),
-        status: 'error',
+        status: "error",
       }),
       { status: 500 }
     );
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
         createdAt: true,
         weightEntries: {
           orderBy: {
-            createdAt: 'asc',
+            createdAt: "asc",
           },
           select: {
             createdAt: true,
@@ -79,8 +79,8 @@ export async function GET(req: NextRequest) {
   } catch (error: any) {
     return new NextResponse(
       JSON.stringify({
-        message: error instanceof Error ? error.message : 'Cannot get entries',
-        status: 'error',
+        message: error instanceof Error ? error.message : "Cannot get entries",
+        status: "error",
       }),
       { status: 500 }
     );
@@ -96,20 +96,20 @@ export async function POST(req: NextRequest) {
   if (!currentUser) {
     return new NextResponse(
       JSON.stringify({
-        message: 'Unauthorized',
-        status: 'error',
+        message: "Unauthorized",
+        status: "error",
       }),
       { status: 401 }
     );
   }
-  
+
   const unsafeBody = await req.json();
   const body = CreateWeight.passthrough().safeParse(unsafeBody);
   if (!body.success) {
     return new NextResponse(
       JSON.stringify({
         message: body.error.format(),
-        status: 'error',
+        status: "error",
       }),
       { status: 500 }
     );
@@ -137,8 +137,8 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     return new NextResponse(
       JSON.stringify({
-        message: error instanceof Error ? error.message : 'Cannot create entry',
-        status: 'error',
+        message: error instanceof Error ? error.message : "Cannot create entry",
+        status: "error",
       }),
       { status: 500 }
     );

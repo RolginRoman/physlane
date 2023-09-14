@@ -14,15 +14,15 @@ import {
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCreateWeightEntry } from "./data";
+import { useCreateWeightEntry } from "../loader";
 import { WeightForm } from "./weight-form";
-import { useWellKnownSettings } from "../user/data";
+import { useWellKnownSettings } from "../../user/loader";
 
 const FormSchema = Weight.merge(
   Weight.pick({ id: true, createdAt: true }).deepPartial()
 );
 
-export function LogMeasure() {
+export function PostMeasure() {
   const [opened, setDialogOpen] = useState(false);
   const { mutateAsync: createEntryAsync, isLoading } = useCreateWeightEntry();
   const settings = useWellKnownSettings();
@@ -35,7 +35,6 @@ export function LogMeasure() {
     },
     mode: "onTouched",
     reValidateMode: "onChange",
-    // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(FormSchema, {
       errorMap: (error, ctx) => {
         return { message: ctx.defaultError };

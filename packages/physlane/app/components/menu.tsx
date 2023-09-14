@@ -1,11 +1,11 @@
-'use client';
-import { Link } from '@physlane/ui';
-import { usePathname } from 'next/navigation';
-import { HTMLAttributes } from 'react';
+"use client";
+import { Link } from "@physlane/ui";
+import { usePathname } from "next/navigation";
+import { HTMLAttributes } from "react";
 
 const menuItems = [
-  { href: '/', name: 'home' },
-  { href: '/analytics', name: 'analytics' },
+  { href: "/", name: "home" },
+  { href: "/analytics", name: "analytics" },
 ];
 
 export default function Menu(props: HTMLAttributes<HTMLElement>) {
@@ -22,7 +22,7 @@ export default function Menu(props: HTMLAttributes<HTMLElement>) {
             >
               <Link
                 theme={{
-                  underline: pathName === item.href ? 'always' : 'auto',
+                  underline: pathName === item.href ? "always" : "auto",
                 }}
                 href={item.href}
               >

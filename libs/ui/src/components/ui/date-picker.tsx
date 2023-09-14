@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { cn } from '../../utils';
-import { Button } from './button';
-import { Calendar, CalendarProps } from './calendar';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { Icons } from './icon';
+import { cn } from "../../utils";
+import { Button } from "./button";
+import { Calendar, CalendarProps } from "./calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { Icons } from "./icon";
 
 type DatePickerProps = {
   value?: Date;
   dateFormatter?: (date: Date | number) => string;
   emptySelectorContent?: React.ReactNode;
   onSelect: (day: Date | undefined) => void;
-} & Pick<CalendarProps, 'disabled'>;
+} & Pick<CalendarProps, "disabled">;
 
 const defaultDateFormatter = (date: Date | number): string => {
   return Intl.DateTimeFormat().format(date);
@@ -32,10 +32,10 @@ export function DatePicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={'outline'}
+          variant={"outline"}
           className={cn(
-            'w-[280px] justify-start text-left font-normal',
-            !value && 'text-muted-foreground'
+            "w-[280px] justify-start text-left font-normal",
+            !value && "text-muted-foreground"
           )}
         >
           <Icons.Calendar className="mr-2 h-4 w-4" />

@@ -1,7 +1,7 @@
-import { db } from '@physlane/db';
-import { hash } from 'bcryptjs';
-import { z } from 'zod';
-import { NewUser } from '@physlane/domain';
+import { db } from "@physlane/db";
+import { hash } from "bcryptjs";
+import { z } from "zod";
+import { NewUser } from "@physlane/domain";
 
 export async function register(payload: z.infer<typeof NewUser>) {
   const parsed = NewUser.safeParse(payload);
@@ -19,9 +19,9 @@ export async function register(payload: z.infer<typeof NewUser>) {
         create: [
           {
             password: hashed_password,
-            provider: 'internal',
+            provider: "internal",
             providerAccountId: email,
-            type: 'credentials',
+            type: "credentials",
           },
         ],
       },

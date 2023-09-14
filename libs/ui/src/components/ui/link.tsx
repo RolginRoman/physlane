@@ -1,8 +1,8 @@
-import { LinkProps as NextLinkProps, default as NextLink } from 'next/link';
-import { Link as ThemedLink } from '@radix-ui/themes';
-import React from 'react';
+import { LinkProps as NextLinkProps, default as NextLink } from "next/link";
+import { Link as ThemedLink } from "@radix-ui/themes";
+import React from "react";
 
-type LinkProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
+type LinkProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> &
   NextLinkProps & { theme?: React.ComponentProps<typeof ThemedLink> };
 
 export const Link = React.forwardRef<

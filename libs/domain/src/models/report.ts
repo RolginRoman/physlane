@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { Weight } from './weight';
+import { z } from "zod";
+import { Weight } from "./weight";
 
 export const Report = z.object({
   createdAt: z.coerce.date(),
