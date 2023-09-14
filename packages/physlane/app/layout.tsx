@@ -1,20 +1,20 @@
-import '@radix-ui/themes/styles.css';
-import './global.css';
+import "@radix-ui/themes/styles.css";
+import "./global.css";
 
-import { fontSans } from '@physlane/fonts';
-import { Toaster, cn } from '@physlane/ui';
-import { Theme } from '@radix-ui/themes';
-import Header from './components/header';
-import Providers from './providers';
-import getQueryClient from './query-client';
-import { loadUserSettings } from './user/data';
-import { queryKeys } from './query-keys';
-import { Hydrate, dehydrate } from '@tanstack/react-query';
-import { headers } from 'next/headers';
+import { fontSans } from "@physlane/fonts";
+import { Toaster, cn } from "@physlane/ui";
+import { Theme } from "@radix-ui/themes";
+import Header from "./components/header";
+import Providers from "./providers";
+import getQueryClient from "./query-client";
+import { loadUserSettings } from "./user/loader";
+import { queryKeys } from "./query-keys";
+import { Hydrate, dehydrate } from "@tanstack/react-query";
+import { headers } from "next/headers";
 
 export const metadata = {
-  description: 'One of the kind',
-  title: 'Welcome to physlane',
+  description: "One of the kind",
+  title: "Welcome to physlane",
 };
 
 export default async function RootLayout({
@@ -28,16 +28,16 @@ export default async function RootLayout({
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
         <Providers>
           <Hydrate state={dehydratedState}>
-            <Theme className='flex flex-col min-h-screen'>
+            <Theme className="flex flex-col min-h-screen">
               <Header></Header>
               {children}
             </Theme>

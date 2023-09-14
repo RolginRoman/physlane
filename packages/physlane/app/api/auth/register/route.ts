@@ -1,6 +1,6 @@
-import { register } from '@physlane/auth/core';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { register } from "@physlane/auth/core";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,8 +17,8 @@ export async function POST(req: NextRequest) {
     // TODO zod errors / email unique
     return new NextResponse(
       JSON.stringify({
-        message: error instanceof Error ? error.message : 'Cannot create user',
-        status: 'error',
+        message: error instanceof Error ? error.message : "Cannot create user",
+        status: "error",
       }),
       { status: 500 }
     );

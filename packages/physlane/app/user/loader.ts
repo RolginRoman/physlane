@@ -55,5 +55,8 @@ export const useUpdateUserSettings = () => {
         (old) => ({ ...old, ...values })
       );
     },
+    onSettled: () => {
+      queryClient.invalidateQueries(queryKeys.userSettings);
+    },
   });
 };

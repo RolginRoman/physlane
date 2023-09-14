@@ -15,7 +15,7 @@ import {
 import _groupBy from "lodash/groupBy";
 import { Text } from "@radix-ui/themes";
 import { DataKey } from "recharts/types/util/types";
-import { useWellKnownSettings } from "../user/data";
+import { useWellKnownSettings } from "../user/loader";
 
 type Grouped<T extends object> = T & { __entries: T[] };
 const dateTimeFormat = new Intl.DateTimeFormat();
@@ -127,7 +127,6 @@ function LineTooltip<T extends number | string | Array<string | number>>({
 }) {
   const settings = useWellKnownSettings();
   const { active, payload, label } = tooltipProps;
-  // console.log(tooltipProps);
   if (active && payload && payload.length) {
     const item = payload[0]?.payload;
     const entries = item?.__entries;
@@ -150,7 +149,9 @@ function LineTooltip<T extends number | string | Array<string | number>>({
             </span>
             <span className="font-bold">
               {parseFloat(item?.weight.toFixed(1)) ?? "-"}{" "}
-              {settings?.measure && settings.measure}
+              <span className="font-normal">
+                {settings?.measure && settings.measure}
+              </span>
             </span>
           </div>
           {(entries?.length ?? 0) > 1 && (

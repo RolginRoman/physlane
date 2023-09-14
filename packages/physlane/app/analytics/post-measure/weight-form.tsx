@@ -1,5 +1,5 @@
-'use client';
-import { Weight, ALL_MEASURES } from '@physlane/domain';
+"use client";
+import { Weight, ALL_MEASURES } from "@physlane/domain";
 import {
   DatePicker,
   Form,
@@ -14,10 +14,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@physlane/ui';
-import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { z } from 'zod';
+} from "@physlane/ui";
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { z } from "zod";
 
 const FormSchema = Weight.merge(
   z.object({
@@ -36,37 +36,37 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
   return (
     <Form {...formContext}>
       <form
-        className='space-y-3 w-full'
+        className="space-y-3 w-full"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
         }}
       >
-        <div className='flex space-x-3'>
+        <div className="flex space-x-3">
           <FormField
             control={formContext.control}
-            name='weight'
+            name="weight"
             render={({ field, fieldState }) => (
-              <FormItem className='grow-[2]'>
+              <FormItem className="grow-[2]">
                 <FormLabel>Weight</FormLabel>
                 <FormControl>
                   <Input
                     autoFocus
-                    placeholder='Your weight data'
+                    placeholder="Your weight data"
                     {...field}
                   ></Input>
                 </FormControl>
                 {fieldState.error && (
-                  <FormMessage className='text-xs'></FormMessage>
+                  <FormMessage className="text-xs"></FormMessage>
                 )}
               </FormItem>
             )}
           />
           <FormField
             control={formContext.control}
-            name='measure'
+            name="measure"
             render={({ field, fieldState }) => (
-              <FormItem className='grow'>
+              <FormItem className="grow">
                 <FormLabel>Measure</FormLabel>
                 <FormControl>
                   <Select
@@ -75,7 +75,7 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Select measure' />
+                        <SelectValue placeholder="Select measure" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -88,7 +88,7 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                   </Select>
                 </FormControl>
                 {fieldState.error && (
-                  <FormMessage className='text-xs'></FormMessage>
+                  <FormMessage className="text-xs"></FormMessage>
                 )}
               </FormItem>
             )}
@@ -96,21 +96,21 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
         </div>
         <FormField
           control={formContext.control}
-          name='measureDate'
+          name="measureDate"
           render={({ field, fieldState }) => (
-            <FormItem className='flex flex-col'>
+            <FormItem className="flex flex-col">
               <FormLabel>Measure date</FormLabel>
               <FormControl>
                 <DatePicker
                   value={field.value}
                   onSelect={field.onChange}
                   disabled={(date) =>
-                    date > new Date() || date < new Date('1900-01-01')
+                    date > new Date() || date < new Date("1900-01-01")
                   }
                 ></DatePicker>
               </FormControl>
               {fieldState.error && (
-                <FormMessage className='text-xs'></FormMessage>
+                <FormMessage className="text-xs"></FormMessage>
               )}
             </FormItem>
           )}

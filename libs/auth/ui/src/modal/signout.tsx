@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Button,
   Dialog,
@@ -8,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@physlane/ui';
-import { signOut } from 'next-auth/react';
+} from "@physlane/ui";
+import { signOut } from "next-auth/react";
 
 export function SignOut() {
   return (
@@ -18,12 +18,12 @@ export function SignOut() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you leaving?</DialogTitle>
-          <DialogDescription className='pt-4'>
+          <DialogDescription className="pt-4">
             Miss you already, Champ
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={() => signOut({ callbackUrl: '/', redirect: true })}>
+          <Button onClick={() => signOut({ callbackUrl: "/", redirect: true })}>
             Sign out
           </Button>
         </DialogFooter>

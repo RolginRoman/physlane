@@ -12,7 +12,7 @@ import {
   Spinner,
 } from "@physlane/ui";
 import { Heading, Text } from "@radix-ui/themes";
-import { useUpdateUserSettings, useWellKnownSettings } from "../user/data";
+import { useUpdateUserSettings, useWellKnownSettings } from "../user/loader";
 
 export function Settings() {
   const {
@@ -25,7 +25,7 @@ export function Settings() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="cursor-pointer">Settings</button>
+        <button>Settings</button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

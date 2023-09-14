@@ -1,6 +1,6 @@
-import { getUser } from '@physlane/auth/core';
-import { db } from '@physlane/db';
-import { NextRequest, NextResponse } from 'next/server';
+import { getUser } from "@physlane/auth/core";
+import { db } from "@physlane/db";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   _: NextRequest,
@@ -11,8 +11,8 @@ export async function DELETE(
   if (!currentUser) {
     return new NextResponse(
       JSON.stringify({
-        message: 'Unauthorized',
-        status: 'error',
+        message: "Unauthorized",
+        status: "error",
       }),
       { status: 401 }
     );
@@ -30,7 +30,7 @@ export async function DELETE(
       },
     });
     if (!isEntryRelatedToUser) {
-      throw new Error('Cannot delete entry on behalf of other user');
+      throw new Error("Cannot delete entry on behalf of other user");
     }
     const result = await db.weightEntry.delete({
       where: {
@@ -40,8 +40,8 @@ export async function DELETE(
   } catch (error: any) {
     return new NextResponse(
       JSON.stringify({
-        message: error instanceof Error ? error.message : 'Cannot delete entry',
-        status: 'error',
+        message: error instanceof Error ? error.message : "Cannot delete entry",
+        status: "error",
       }),
       { status: 500 }
     );

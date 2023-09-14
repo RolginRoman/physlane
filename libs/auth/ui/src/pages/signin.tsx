@@ -1,6 +1,6 @@
-'use client';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { UserBaseCredentials } from '@physlane/domain';
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UserBaseCredentials } from "@physlane/domain";
 import {
   Button,
   Form,
@@ -11,14 +11,14 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@physlane/ui';
-import { signIn } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { match } from 'ts-pattern';
-import { z } from 'zod';
-import { Layout } from './base';
+} from "@physlane/ui";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { match } from "ts-pattern";
+import { z } from "zod";
+import { Layout } from "./base";
 
 export function SignIn({
   children,
@@ -34,7 +34,7 @@ export function SignIn({
       {providers &&
         Object.values(providers).map((provider) =>
           match(provider)
-            .with({ type: 'credentials' }, (provider) => (
+            .with({ type: "credentials" }, (provider) => (
               <CredentialsForm
                 key={provider.type}
                 csrfToken={csrfToken}
@@ -54,7 +54,7 @@ const OAuthProvider = ({
   provider: { name: string; id: string; type: string };
 }) => (
   <div key={provider.type}>
-    <Button onClick={() => signIn(provider.id, { callbackUrl: '/' })}>
+    <Button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
       Sign in with {provider.name}
     </Button>
   </div>
@@ -66,8 +66,8 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
 
   const form = useForm<z.infer<typeof UserBaseCredentials>>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(UserBaseCredentials, {
@@ -82,8 +82,8 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
     password,
   }: z.infer<typeof UserBaseCredentials>) {
     try {
-      const redirectUrl = searchParams.get('redirectUrl') ?? undefined;
-      const res = await signIn('credentials', {
+      const redirectUrl = searchParams.get("redirectUrl") ?? undefined;
+      const res = await signIn("credentials", {
         callbackUrl: redirectUrl,
         email,
         password,
@@ -92,11 +92,11 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
       if (res && res.url && !res.error) {
         router.push(res.url);
       } else {
-        form.setError('root', {
-          message: 'invalid email or password',
-          type: 'validate',
+        form.setError("root", {
+          message: "invalid email or password",
+          type: "validate",
         });
-        throw new Error('invalid email or password');
+        throw new Error("invalid email or password");
       }
     } catch (error: any) {
       console.error(error);
@@ -146,7 +146,7 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
                 <FormMessage className="text-xs"></FormMessage>
               ) : (
                 <FormDescription className="text-xs">
-                  Use strong password and don't write it down on a sticky{' '}
+                  Use strong password and don't write it down on a sticky{" "}
                   <span role="img" aria-label="eyes on you">
                     note&nbsp;👀
                   </span>

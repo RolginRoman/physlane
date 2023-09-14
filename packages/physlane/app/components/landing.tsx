@@ -1,4 +1,4 @@
-import { Em, Heading, Text } from '@radix-ui/themes';
+import { Em, Heading, Text } from "@radix-ui/themes";
 
 export default function Landing() {
   return (

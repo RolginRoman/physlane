@@ -1,12 +1,12 @@
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { db } from '@physlane/db';
-import { UserBaseCredentials } from '@physlane/domain';
-import { Account, User as DbUser } from '@prisma/client';
-import { compareSync } from 'bcryptjs';
-import { NextAuthOptions, Session } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { z } from 'zod';
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { db } from "@physlane/db";
+import { UserBaseCredentials } from "@physlane/domain";
+import { Account, User as DbUser } from "@prisma/client";
+import { compareSync } from "bcryptjs";
+import { NextAuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { z } from "zod";
 
 const isSameUser = (
   user: (DbUser & { accounts: Account[] }) | null,
@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
 
       if (!dbUser) {
         if (user) {
-          token['id'] = user.id;
+          token["id"] = user.id;
         }
         return token;
       }
@@ -47,7 +47,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = session.user ?? {};
         // @ts-expect-error missed typeRoots merge
-        session.user.id = token['id'];
+        session.user.id = token["id"];
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
@@ -57,11 +57,11 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    error: '/signin',
-    newUser: '/welcome',
-    signIn: '/signin',
-    signOut: '/',
-    verifyRequest: '/',
+    error: "/signin",
+    newUser: "/welcome",
+    signIn: "/signin",
+    signOut: "/",
+    verifyRequest: "/",
   },
   providers: [
     CredentialsProvider({
@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
         const userCredentials =
           UserBaseCredentials.passthrough().safeParse(credentials);
         if (!userCredentials.success) {
-          console.log('Failed parsing schema');
+          console.log("Failed parsing schema");
           return null;
         }
 
@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
           include: {
             accounts: {
               where: {
-                provider: 'internal',
+                provider: "internal",
                 providerAccountId: email,
               },
             },
@@ -102,16 +102,16 @@ export const authOptions: NextAuthOptions = {
         }
       },
       credentials: {
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
         username: {
-          label: 'Username',
-          type: 'text',
+          label: "Username",
+          type: "text",
         },
       },
     }),
   ],
   secret: process.env.AUTH_SECRET,
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
 };

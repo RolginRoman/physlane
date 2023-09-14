@@ -1,4 +1,4 @@
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 
 export const useRelativeQueryParams = () => {
   const searchParams = useSearchParams();
@@ -16,7 +16,7 @@ export const useRelativeQueryParams = () => {
       urlSearchParams.set(key, value);
     }
 
-    return urlSearchParams.toString() === ''
+    return urlSearchParams.toString() === ""
       ? undefined
       : urlSearchParams.toString();
   };
