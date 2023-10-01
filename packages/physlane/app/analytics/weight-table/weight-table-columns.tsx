@@ -1,7 +1,7 @@
 "use client";
 
 import { Weight } from "@physlane/domain";
-import { Badge, Button, Icons } from "@physlane/ui";
+import { Badge, Button, Icons, WithTooltip } from "@physlane/ui";
 import { Text } from "@radix-ui/themes";
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
@@ -47,15 +47,17 @@ function DeleteButton({ entryId }: { entryId: string }) {
   const { isLoading, mutate } = useDeleteEntry(entryId);
   return (
     <div className="flex justify-end">
-      <Button
-        disabled={isLoading}
-        spinner={isLoading}
-        variant={"destructive"}
-        size={"icon"}
-        onClick={() => mutate()}
-      >
-        <Icons.DeleteEntry />
-      </Button>
+      <WithTooltip content={"Delete entry"} className="mr-5">
+        <Button
+          disabled={isLoading}
+          spinner={isLoading}
+          variant={"destructive"}
+          size={"icon"}
+          onClick={() => mutate()}
+        >
+          <Icons.DeleteEntry />
+        </Button>
+      </WithTooltip>
     </div>
   );
 }

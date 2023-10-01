@@ -31,13 +31,13 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background min-h-screen font-sans antialiased",
           fontSans.variable
         )}
       >
         <Providers>
           <Hydrate state={dehydratedState}>
-            <Theme className="flex flex-col min-h-screen">
+            <Theme className="flex min-h-screen flex-col">
               <Header></Header>
               {children}
             </Theme>

@@ -55,7 +55,7 @@ export function LineChart<T extends ChartDataItem>({
   }, [data]);
 
   return (
-    <div className={cn("w-full h-64", className)}>
+    <div className={cn("h-64 w-full", className)}>
       <ResponsiveContainer width="100%" height="100%">
         <ChartsLineChart
           width={400}
@@ -131,20 +131,20 @@ function LineTooltip<T extends number | string | Array<string | number>>({
     const item = payload[0]?.payload;
     const entries = item?.__entries;
     return (
-      <div className="rounded-lg border bg-background p-2 shadow-sm">
+      <div className="bg-background rounded-lg border p-2 shadow-sm">
         <div className="grid grid-cols-2 gap-2">
           {label && (
             <div className="flex flex-col">
-              <span className="text-[0.70rem] uppercase text-muted-foreground">
+              <span className="text-muted-foreground text-[0.70rem] uppercase">
                 Date
               </span>
-              <span className="font-bold text-muted-foreground">
+              <span className="text-muted-foreground font-bold">
                 {`${dateTimeFormat.format(Date.parse(label))}`}
               </span>
             </div>
           )}
           <div className="flex flex-col">
-            <span className="text-[0.70rem] uppercase text-muted-foreground">
+            <span className="text-muted-foreground text-[0.70rem] uppercase">
               Weight
             </span>
             <span className="font-bold">

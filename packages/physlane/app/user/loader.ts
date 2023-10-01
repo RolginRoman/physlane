@@ -39,7 +39,7 @@ export const useWellKnownSettings = () => {
     if (result.success) {
       return result.data;
     } else {
-      return undefined;
+      return undefined; // TODO default settings?
     }
   }, [settings.data]);
 };

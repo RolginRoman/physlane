@@ -8,7 +8,7 @@ export const metadata = {
 export default async function Index() {
   return (
     <>
-      <main className="mx-auto max-w-screen-lg pt-8 p-4 lg:p-0">
+      <main className="mx-auto max-w-screen-lg p-4 pt-8 lg:p-0">
         <Landing></Landing>
         <div className="grid grid-cols-3"></div>
       </main>

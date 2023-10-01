@@ -68,7 +68,7 @@ export const TabsWithContent = ({
       </TabsContent>
       <TabsContent value="graph">
         <LineChart
-          className="lg:-ml-2 -ml-1"
+          className="-ml-1 lg:-ml-2"
           data={measuredData.weightEntries}
           xDataKey="createdAt"
           yDataKey="weight"

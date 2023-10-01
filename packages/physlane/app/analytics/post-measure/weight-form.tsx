@@ -36,7 +36,7 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
   return (
     <Form {...formContext}>
       <form
-        className="space-y-3 w-full"
+        className="w-full space-y-3"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit();

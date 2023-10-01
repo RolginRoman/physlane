@@ -4,10 +4,10 @@ import UserMenu from "./user-menu";
 
 export default function Header() {
   return (
-    <header className="flex p-4 sticky justify-between">
+    <header className="sticky flex justify-between p-4">
       <div className="flex items-center">
         <Logo width={124} full></Logo>
-        <Menu className="pl-6 h-full flex items-end"></Menu>
+        <Menu className="flex h-full items-end pl-6"></Menu>
       </div>
       <div className="flex items-center">
         <UserMenu></UserMenu>
