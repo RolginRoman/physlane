@@ -3,7 +3,7 @@ import { Em, Heading, Text } from "@radix-ui/themes";
 export default function Landing() {
   return (
     <>
-      <Heading className="w-full h-48">
+      <Heading className="h-48 w-full">
         Welcome to <Em>Physlane</Em>
         <br /> Your Personal Fitness Analytics Hub 🏋️‍♂️
       </Heading>

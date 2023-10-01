@@ -11,11 +11,11 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
   const { data, isFetching: isLoading, isError } = useReport();
 
   return (
-    <main className="max-w-screen-lg px-4 pb-12 lg:px-0 lg:pb-16 lg:pt-4 lg:min-w-[912px] lg:mx-auto">
+    <main className="max-w-screen-lg px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
       <div className="flex py-2">
         <PostMeasure></PostMeasure>
         {isError && <Text size="3">Error</Text>}
-        {isLoading && <Spinner />}
+        {<Spinner className="h-[2em] w-[2em]" />}
         {data && <Filters data={data}></Filters>}
       </div>
       {data && <TabsWithContent data={data} mode={mode}></TabsWithContent>}

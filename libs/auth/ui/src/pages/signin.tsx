@@ -107,7 +107,7 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onFormSubmit)}
-        className="space-y-3 w-full"
+        className="w-full space-y-3"
       >
         <FormField
           control={form.control}

@@ -34,12 +34,12 @@ export function Settings() {
           </SheetTitle>
           <SheetDescription>
             Make changes to your settings here.{" "}
-            {isSuccess && <Text>Synced</Text>}
+            {isSuccess && <Text>✔️Synced</Text>}
             {isLoading && <Spinner></Spinner>}
           </SheetDescription>
         </SheetHeader>
         <div className="mt-3">
-          <div className="flex justify-between w-full items-center">
+          <div className="flex w-full items-center justify-between">
             <Label>Measure</Label>
             <Button
               onClick={() =>

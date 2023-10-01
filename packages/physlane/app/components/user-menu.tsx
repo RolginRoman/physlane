@@ -31,9 +31,9 @@ function UserMenuDropdown({ user }: { user: Session["user"] }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Icons.User className="text-slate-800 mx-auto h-6 w-6 cursor-pointer" />
+        <Icons.User className="mx-auto h-6 w-6 cursor-pointer text-slate-800" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 me-4">
+      <DropdownMenuContent className="me-4 w-56">
         <DropdownMenuLabel>
           <Text className="cursor-default">{user?.name}</Text>
         </DropdownMenuLabel>
