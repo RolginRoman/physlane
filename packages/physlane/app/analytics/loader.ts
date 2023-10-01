@@ -23,7 +23,7 @@ export const deleteWeightEntry = async (
   id: z.infer<typeof Weight>["id"],
   options?: Options
 ) => {
-  api.delete(`analytics/weight/${id}`, options).json();
+  return api.delete(`analytics/weight/${id}`, options).json();
 };
 
 export const useDeleteEntry = (entryId: string) => {
@@ -35,12 +35,7 @@ export const useDeleteEntry = (entryId: string) => {
       await queryClient.cancelQueries({ queryKey: queryKeys.report });
     },
     onSettled: async () => {
-      await new Promise<void>((resolve) => {
-        setTimeout(() => {
-          queryClient.invalidateQueries({ queryKey: queryKeys.report });
-          resolve();
-        }, 1000);
-      });
+      queryClient.invalidateQueries({ queryKey: queryKeys.report });
     },
   });
 };

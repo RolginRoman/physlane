@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { useMemo } from "react";
 
-export const loadUserSettings = (options?: Options) => {
+export const loadUserSettings = async (options?: Options) => {
   return api
     .get(`user/settings`, options)
     .json()
@@ -25,6 +25,7 @@ export const useUserSettings = () => {
     queryKey: queryKeys.userSettings,
     queryFn: loadUserSettings,
     keepPreviousData: true,
+    staleTime: Infinity,
   });
 };
 
@@ -39,7 +40,7 @@ export const useWellKnownSettings = () => {
     if (result.success) {
       return result.data;
     } else {
-      return undefined; // TODO default settings?
+      return {} as z.infer<typeof WellKnownSettings>; // TODO default settings?
     }
   }, [settings.data]);
 };

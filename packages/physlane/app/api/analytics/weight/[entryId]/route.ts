@@ -6,6 +6,9 @@ export async function DELETE(
   _: NextRequest,
   { params }: { params: { entryId: string } }
 ) {
+  const _longResponse = await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
   const currentUser = await getUser();
 
   if (!currentUser) {
@@ -32,7 +35,7 @@ export async function DELETE(
     if (!isEntryRelatedToUser) {
       throw new Error("Cannot delete entry on behalf of other user");
     }
-    const result = await db.weightEntry.delete({
+    await db.weightEntry.delete({
       where: {
         id: params.entryId,
       },
