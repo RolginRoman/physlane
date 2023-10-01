@@ -19,13 +19,14 @@ export const Spinner = ({
 }: React.PropsWithoutRef<React.HTMLAttributes<HTMLSpanElement>> &
   VariantProps<typeof spinnerVariants>) => {
   return (
-    <span
-      className={cn(
-        "relative inline-block h-12 w-12 animate-spin rounded-full bg-gradient-to-t from-cyan-500 to-blue-500 after:absolute after:left-1/2 after:top-1/2 after:h-5/6 after:w-5/6 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-['']",
-        spinnerVariants({ variant }),
-        className
-      )}
-    ></span>
+    <span></span>
+    // <span
+    //   className={cn(
+    //     "relative inline-block h-12 w-12 animate-spin rounded-full bg-gradient-to-t from-cyan-500 to-blue-500 after:absolute after:left-1/2 after:top-1/2 after:h-5/6 after:w-5/6 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-['']",
+    //     spinnerVariants({ variant }),
+    //     className
+    //   )}
+    // ></span>
   );
 };
 

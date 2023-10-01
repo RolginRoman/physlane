@@ -13,6 +13,7 @@ import {
 } from "@physlane/ui";
 import { Heading, Text } from "@radix-ui/themes";
 import { useUpdateUserSettings, useWellKnownSettings } from "../user/loader";
+import { useEffect, useState } from "react";
 
 export function Settings() {
   const {
@@ -20,7 +21,16 @@ export function Settings() {
     isSuccess,
     isLoading,
   } = useUpdateUserSettings();
-  const settings = useWellKnownSettings();
+  const { measure } = useWellKnownSettings();
+  const [synced, setSynced] = useState(false);
+
+  useEffect(() => {
+    setSynced(isSuccess);
+    const showTimerId = setTimeout(() => {
+      setSynced(false);
+    }, 3000);
+    return () => clearTimeout(showTimerId);
+  }, [isSuccess]);
 
   return (
     <Sheet>
@@ -34,21 +44,24 @@ export function Settings() {
           </SheetTitle>
           <SheetDescription>
             Make changes to your settings here.{" "}
-            {isSuccess && <Text>✔️Synced</Text>}
-            {isLoading && <Spinner className="h-2.5 w-2.5"></Spinner>}
+            <div className="mt-1.5 h-5">
+              {synced && <Text>✔️Synced</Text>}
+              {isLoading && <Spinner className="h-2.5 w-2.5"></Spinner>}
+            </div>
           </SheetDescription>
         </SheetHeader>
-        <div className="mt-3">
+        <div className="mt-2">
           <div className="flex w-full items-center justify-between">
             <Label>Measure</Label>
             <Button
+              size={"sm"}
               onClick={() =>
                 updateUserSettings({
-                  measure: settings?.measure === "kg" ? "lb" : "kg",
+                  measure: measure === "kg" ? "lb" : "kg",
                 })
               }
             >
-              {settings?.measure}
+              {measure}
             </Button>
           </div>
           <Separator className="my-3" />

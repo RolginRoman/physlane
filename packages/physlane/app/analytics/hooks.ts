@@ -2,6 +2,7 @@ import {
   Measure,
   Measures,
   Report,
+  Weight,
   convertWeightEntryKgToLb,
   convertWeightEntryLbToKg,
 } from "@physlane/domain";
@@ -9,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { z } from "zod";
 import { match } from "ts-pattern";
-import { useUserSettings } from "../user/loader";
+import { useUserSettings, useWellKnownSettings } from "../user/loader";
 
 export const modes = ["graph", "table"] as const;
 export type Modes = (typeof modes)[number];
@@ -34,27 +35,28 @@ export const useSearchParamsModel = () => {
 };
 
 export const useAdaptiveMeasureReport = (data: z.infer<typeof Report>) => {
-  const { data: userSettings } = useUserSettings();
-  const measure = userSettings?.measure as Measures | undefined;
+  const { measure } = useWellKnownSettings();
 
   return useMemo(() => {
     return {
       ...data,
-      weightEntries: data.weightEntries.map((entry) => {
-        return match(measure)
-          .with("kg", (value) => {
-            return entry.measure !== value
-              ? convertWeightEntryLbToKg(entry)
-              : entry;
-          })
-          .with("lb", (value) => {
-            return entry.measure !== value
-              ? convertWeightEntryKgToLb(entry)
-              : entry;
-          })
-          .with(undefined, () => entry)
-          .exhaustive();
-      }),
+      weightEntries: data.weightEntries.map((entry) =>
+        convertWeight(entry, measure)
+      ),
     };
   }, [data, measure]);
+};
+
+export const convertWeight = (
+  entry: z.infer<typeof Weight>,
+  currentMeasure: Measures
+) => {
+  return match(currentMeasure)
+    .with("kg", (value) => {
+      return entry.measure !== value ? convertWeightEntryLbToKg(entry) : entry;
+    })
+    .with("lb", (value) => {
+      return entry.measure !== value ? convertWeightEntryKgToLb(entry) : entry;
+    })
+    .exhaustive();
 };

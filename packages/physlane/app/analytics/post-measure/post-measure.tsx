@@ -17,21 +17,26 @@ import { z } from "zod";
 import { useCreateWeightEntry } from "../loader";
 import { WeightForm } from "./weight-form";
 import { useWellKnownSettings } from "../../user/loader";
+import { convertWeight } from "../hooks";
 
 const FormSchema = Weight.merge(
   Weight.pick({ id: true, createdAt: true }).deepPartial()
 );
 
-export function PostMeasure() {
+export function PostMeasure({
+  lastMeasure,
+}: {
+  lastMeasure: z.infer<typeof Weight>;
+}) {
   const [opened, setDialogOpen] = useState(false);
   const { mutateAsync: createEntryAsync, isLoading } = useCreateWeightEntry();
-  const settings = useWellKnownSettings();
+  const { measure = "kg" } = useWellKnownSettings();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     defaultValues: {
       measureDate: new Date(),
-      measure: settings?.measure ?? "kg",
-      weight: 10,
+      measure: measure,
+      weight: convertWeight(lastMeasure, measure).weight,
     },
     mode: "onTouched",
     reValidateMode: "onChange",
