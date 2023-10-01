@@ -45,7 +45,7 @@ export function LineChart<T extends ChartDataItem>({
 }) {
   const groupedByDay: Grouped<T>[] = useMemo(() => {
     const result = _groupBy(data, (item) =>
-      Math.floor((item.createdAt as Date).getTime() / millisecondInDay)
+      Math.floor((item.measureDate as Date).getTime() / millisecondInDay)
     );
     return Object.values(result).map((groupedByDayItems) => {
       const lastEntry = groupedByDayItems[groupedByDayItems.length - 1];

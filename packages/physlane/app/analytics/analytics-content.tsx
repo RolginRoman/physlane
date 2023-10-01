@@ -15,7 +15,7 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
       <div className="flex py-2">
         <PostMeasure></PostMeasure>
         {isError && <Text size="3">Error</Text>}
-        {<Spinner className="h-[2em] w-[2em]" />}
+        {<Spinner className="h-[1em] w-[1em]" />}
         {data && <Filters data={data}></Filters>}
       </div>
       {data && <TabsWithContent data={data} mode={mode}></TabsWithContent>}

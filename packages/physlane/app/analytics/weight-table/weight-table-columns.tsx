@@ -22,10 +22,10 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
     header: "Weight",
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "measureDate",
     cell: ({ row }) => {
-      const { createdAt } = row.original;
-      const date = new Intl.DateTimeFormat("en-US").format(createdAt);
+      const { measureDate } = row.original;
+      const date = new Intl.DateTimeFormat("en-US").format(measureDate);
       return (
         <div className="flex justify-between">
           <Text>{date}</Text>

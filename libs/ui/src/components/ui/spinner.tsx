@@ -1,12 +1,28 @@
 import { cn } from "@physlane/ui/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const spinnerVariants = cva("after:bg-slate-700", {
+  defaultVariants: {
+    variant: "light",
+  },
+  variants: {
+    variant: {
+      default: "after:bg-slate-700",
+      light: "after:bg-white",
+    },
+  },
+});
 
 export const Spinner = ({
   className,
-}: React.PropsWithoutRef<React.HTMLAttributes<HTMLSpanElement>>) => {
+  variant,
+}: React.PropsWithoutRef<React.HTMLAttributes<HTMLSpanElement>> &
+  VariantProps<typeof spinnerVariants>) => {
   return (
     <span
       className={cn(
-        "relative inline-block h-12 w-12 animate-spin rounded-full bg-gradient-to-t from-cyan-500 to-blue-500 after:absolute after:left-1/2 after:top-1/2 after:h-5/6 after:w-5/6 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-slate-700 after:content-['']",
+        "relative inline-block h-12 w-12 animate-spin rounded-full bg-gradient-to-t from-cyan-500 to-blue-500 after:absolute after:left-1/2 after:top-1/2 after:h-5/6 after:w-5/6 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-['']",
+        spinnerVariants({ variant }),
         className
       )}
     ></span>
