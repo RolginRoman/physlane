@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { queryKeys } from "../query-keys";
 
-export const loadReport = (options?: Options) => {
+export const loadReport = async (options?: Options) => {
   return api
     .get(`analytics/weight`, options)
     .json()

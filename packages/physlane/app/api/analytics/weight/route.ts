@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
         createdAt: true,
         weightEntries: {
           orderBy: {
-            createdAt: "asc",
+            measureDate: "asc",
           },
           select: {
             createdAt: true,
@@ -115,12 +115,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { createdAt, measure, weight } = body.data;
+  const { measure, weight, measureDate } = body.data;
   try {
     await db.weightEntry.create({
       data: {
-        createdAt,
         measure,
+        measureDate,
         reportAggregator: {
           connectOrCreate: {
             create: {

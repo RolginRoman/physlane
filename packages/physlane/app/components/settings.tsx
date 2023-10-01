@@ -35,7 +35,7 @@ export function Settings() {
           <SheetDescription>
             Make changes to your settings here.{" "}
             {isSuccess && <Text>✔️Synced</Text>}
-            {isLoading && <Spinner></Spinner>}
+            {isLoading && <Spinner className="h-2.5 w-2.5"></Spinner>}
           </SheetDescription>
         </SheetHeader>
         <div className="mt-3">
