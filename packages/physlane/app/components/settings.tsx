@@ -44,10 +44,10 @@ export function Settings() {
           </SheetTitle>
           <SheetDescription>
             Make changes to your settings here.{" "}
-            <div className="mt-1.5 h-5">
+            <span className="mt-1.5 block h-5">
               {synced && <Text>✔️Synced</Text>}
               {isLoading && <Spinner className="h-2.5 w-2.5"></Spinner>}
-            </div>
+            </span>
           </SheetDescription>
         </SheetHeader>
         <div className="mt-2">

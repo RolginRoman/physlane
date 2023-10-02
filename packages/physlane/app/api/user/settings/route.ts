@@ -8,7 +8,9 @@ import _partition from "lodash/partition";
 export async function GET() {
   const currentUser = await getUser();
   if (!currentUser) {
-    return NextResponse.json({}, { status: 401 });
+    return NextResponse.json({});
+
+    // return NextResponse.json({}, { status: 401 });
   }
 
   const settings = await db.setting.findMany({

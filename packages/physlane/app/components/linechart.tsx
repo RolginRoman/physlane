@@ -10,12 +10,12 @@ import {
   TooltipProps,
   XAxis,
   YAxis,
-  ReferenceLine,
 } from "recharts";
 import _groupBy from "lodash/groupBy";
 import { Text } from "@radix-ui/themes";
 import { DataKey } from "recharts/types/util/types";
 import { useWellKnownSettings } from "../user/loader";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 
 type Grouped<T extends object> = T & { __entries: T[] };
 const dateTimeFormat = new Intl.DateTimeFormat();
@@ -28,8 +28,6 @@ const dateFormatter = (value: string) => {
     year: "2-digit",
   }).format(Date.parse(value));
 };
-
-const millisecondInDay = 1000 * 60 * 60 * 24;
 
 export function LineChart<T extends ChartDataItem>({
   animationStartMs = 0,
@@ -44,8 +42,9 @@ export function LineChart<T extends ChartDataItem>({
   yDataKey: keyof T; //Pick<React.ComponentProps<typeof YAxis>, 'dataKey'>;
 }) {
   const groupedByDay: Grouped<T>[] = useMemo(() => {
+    const startDate = new Date(0);
     const result = _groupBy(data, (item) =>
-      Math.floor((item.measureDate as Date).getTime() / millisecondInDay)
+      differenceInCalendarDays(startDate, item.measureDate as Date)
     );
     return Object.values(result).map((groupedByDayItems) => {
       const lastEntry = groupedByDayItems[groupedByDayItems.length - 1];

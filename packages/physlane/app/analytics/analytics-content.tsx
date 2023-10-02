@@ -2,13 +2,13 @@
 
 import { Spinner } from "@physlane/ui";
 import { Text } from "@radix-ui/themes";
-import { Filters, TabsWithContent } from "./analytics-content-body";
 import { Modes } from "./hooks";
 import { useReport } from "./loader";
 import { PostMeasure } from "./post-measure/post-measure";
+import { TabsWithContent } from "./tabs-with-content";
 
 export function AnalyticsContent({ mode }: { mode: Modes }) {
-  const { data, isFetching: isLoading, isError } = useReport();
+  const { data, isFetching, isError } = useReport();
 
   const lastMeasure = data?.weightEntries[data.weightEntries.length - 1];
 
@@ -17,10 +17,9 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
       <div className="flex py-2">
         <PostMeasure lastMeasure={lastMeasure}></PostMeasure>
         {isError && <Text size="3">Error</Text>}
-        {<Spinner className="h-[1em] w-[1em]" />}
-        {data && <Filters data={data}></Filters>}
+        {isFetching && <Spinner className="h-[1em] w-[1em]" />}
       </div>
-      {data && <TabsWithContent data={data} mode={mode}></TabsWithContent>}
+      {data && <TabsWithContent data={data} mode={mode} />}
     </main>
   );
 }

@@ -35,15 +35,15 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers>
-          <Hydrate state={dehydratedState}>
-            <Theme className="flex min-h-screen flex-col">
+        <Theme className="flex min-h-screen flex-col">
+          <Providers>
+            <Hydrate state={dehydratedState}>
               <Header></Header>
               {children}
-            </Theme>
-          </Hydrate>
-        </Providers>
-        <Toaster />
+            </Hydrate>
+          </Providers>
+          <Toaster />
+        </Theme>
       </body>
     </html>
   );

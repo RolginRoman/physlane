@@ -19,16 +19,6 @@ const Auth = <C extends ComponentType>(
 
   return async (props: React.ComponentPropsWithRef<C>) => {
     const user = await getUser();
-
-    if (!user) {
-      // TODO resolve callback URL to continue flow after registration
-      const redirectTo = "/";
-      redirect(
-        `${handler}?redirectUrl=${encodeURIComponent(redirectTo)}`,
-        RedirectType.replace
-      );
-    }
-
     const guard = match(predicate)
       .with("authorized", () => () => !!user)
       .with("unauthorized", () => () => !user)
@@ -36,8 +26,14 @@ const Auth = <C extends ComponentType>(
 
     if (guard()) {
       return <Component {...props} />;
+    } else {
+      // TODO resolve callback URL to continue flow after registration
+      const redirectTo = "/";
+      redirect(
+        `${handler}?redirectUrl=${encodeURIComponent(redirectTo)}`,
+        RedirectType.replace
+      );
     }
-    return null;
   };
 };
 
