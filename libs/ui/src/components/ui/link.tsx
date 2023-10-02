@@ -1,4 +1,4 @@
-import { LinkProps as NextLinkProps, default as NextLink } from "next/link";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { Link as ThemedLink } from "@radix-ui/themes";
 import React from "react";
 

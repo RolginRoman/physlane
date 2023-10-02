@@ -16,6 +16,7 @@ export const useReport = () => {
     queryFn: loadReport,
     queryKey: queryKeys.report,
     keepPreviousData: true,
+    staleTime: 60000,
   });
 };
 

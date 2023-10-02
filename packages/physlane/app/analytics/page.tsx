@@ -2,11 +2,16 @@ import { isAuthorized } from "@physlane/auth/core";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 import { headers } from "next/headers";
 import { z } from "zod";
-import getQueryClient from "../query-client";
 import { AnalyticsContent } from "./analytics-content";
 import { loadReport } from "./loader";
 import { Params } from "./hooks";
 import { queryKeys } from "../query-keys";
+import getQueryClient from "../query-client";
+
+export const metadata = {
+  description: "Physlane. Analytics Page",
+  title: "Analytics - Physlane",
+};
 
 async function Analytics({
   searchParams,

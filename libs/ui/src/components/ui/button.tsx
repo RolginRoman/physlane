@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {true && <Spinner />}
+        {spinner && <Spinner />}
         {children}
       </Comp>
     );

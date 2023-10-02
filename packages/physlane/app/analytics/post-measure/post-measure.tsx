@@ -26,18 +26,21 @@ const FormSchema = Weight.merge(
 export function PostMeasure({
   lastMeasure,
 }: {
-  lastMeasure: z.infer<typeof Weight>;
+  lastMeasure?: z.infer<typeof Weight>;
 }) {
   const [opened, setDialogOpen] = useState(false);
   const { mutateAsync: createEntryAsync, isLoading } = useCreateWeightEntry();
-  const { measure = "kg" } = useWellKnownSettings();
+  const { measure } = useWellKnownSettings();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     defaultValues: {
       measureDate: new Date(),
       measure: measure,
-      weight: convertWeight(lastMeasure, measure).weight,
+      weight: lastMeasure
+        ? parseFloat(convertWeight(lastMeasure, measure).weight.toFixed(1))
+        : 50,
     },
+
     mode: "onTouched",
     reValidateMode: "onChange",
     resolver: zodResolver(FormSchema, {
@@ -66,30 +69,32 @@ export function PostMeasure({
       <DialogTrigger asChild>
         <Button className="w-max">Log measure</Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Add new entry</DialogTitle>
-          <DialogDescription>
-            Add new information about your weight. You&apos;ll be able to
-            correct it later within personal report.
-          </DialogDescription>
-        </DialogHeader>
-        <FormProvider {...form}>
-          <WeightForm onSubmit={() => createNewEntry()}></WeightForm>
-        </FormProvider>
-        <DialogFooter>
-          <Button
-            disabled={isLoading}
-            spinner={isLoading}
-            onClick={() => createNewEntry()}
-          >
-            Save
-          </Button>
-          <Button variant={"secondary"} onClick={() => setDialogOpen(false)}>
-            Cancel
-          </Button>
-        </DialogFooter>
-      </DialogContent>
+      {opened && (
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add new entry</DialogTitle>
+            <DialogDescription>
+              Add new information about your weight. You&apos;ll be able to
+              correct it later within personal report.
+            </DialogDescription>
+          </DialogHeader>
+          <FormProvider {...form}>
+            <WeightForm onSubmit={() => createNewEntry()}></WeightForm>
+          </FormProvider>
+          <DialogFooter>
+            <Button
+              disabled={isLoading}
+              spinner={isLoading}
+              onClick={() => createNewEntry()}
+            >
+              Save
+            </Button>
+            <Button variant={"secondary"} onClick={() => setDialogOpen(false)}>
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      )}
     </Dialog>
   );
 }
