@@ -14,7 +14,7 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
 
   return (
     <main className="max-w-screen-lg px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
-      <div className="flex py-2">
+      <div className="flex pb-2">
         <PostMeasure lastMeasure={lastMeasure}></PostMeasure>
         {isError && <Text size="3">Error</Text>}
         {isFetching && <Spinner className="h-[1em] w-[1em]" />}
