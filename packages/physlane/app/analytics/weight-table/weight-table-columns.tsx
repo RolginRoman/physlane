@@ -50,6 +50,7 @@ function DeleteButton({ entryId }: { entryId: string }) {
       <WithTooltip content={"Delete entry"} className="mr-5">
         <Button
           disabled={isLoading}
+          spinner={isLoading}
           variant={"destructive"}
           size={"icon"}
           onClick={() => mutate()}

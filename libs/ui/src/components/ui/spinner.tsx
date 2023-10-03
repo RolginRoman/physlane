@@ -1,31 +1,40 @@
 import { cn } from "@physlane/ui/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "@radix-ui/react-slot";
 
-const spinnerVariants = cva("after:bg-slate-700", {
-  defaultVariants: {
-    variant: "light",
-  },
-  variants: {
-    variant: {
-      default: "after:bg-slate-700",
-      light: "after:bg-white",
+const spinnerVariants = cva(
+  "relative inline-block h-12 w-12 animate-spin rounded-full border-2 border-solid border-current border-b-transparent text-slate-400",
+  {
+    defaultVariants: {
+      variant: "light",
     },
-  },
-});
+    variants: {
+      variant: {
+        default: "text-slate-400",
+        light: "text-slate-800",
+      },
+    },
+  }
+);
+
+export type SpinnerPropsType = { asChild?: boolean } & React.PropsWithoutRef<
+  React.HTMLAttributes<HTMLSpanElement>
+> &
+  VariantProps<typeof spinnerVariants>;
 
 export const Spinner = ({
   className,
   variant,
-}: React.PropsWithoutRef<React.HTMLAttributes<HTMLSpanElement>> &
-  VariantProps<typeof spinnerVariants>) => {
+  asChild = false,
+  ...props
+}: SpinnerPropsType) => {
+  const Comp = asChild ? Slot : "span";
   return (
-    <span
-      className={cn(
-        "relative inline-block h-12 w-12 animate-spin rounded-full bg-gradient-to-t from-cyan-500 to-blue-500 after:absolute after:left-1/2 after:top-1/2 after:h-5/6 after:w-5/6 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:content-['']",
-        spinnerVariants({ variant }),
-        className
-      )}
-    ></span>
+    <Comp
+      aria-label="Indefinite loading indicator"
+      className={cn(spinnerVariants({ variant }), className)}
+      {...props}
+    ></Comp>
   );
 };
 
