@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@physlane/ui/utils";
+import { Slot } from "@radix-ui/react-slot";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -8,6 +9,8 @@ const Table = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div className="w-full overflow-auto">
     <table
+      cellPadding={0}
+      cellSpacing={0}
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
       {...props}
@@ -50,17 +53,20 @@ TableFooter.displayName = "TableFooter";
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={cn(
-      "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
-      className
-    )}
-    {...props}
-  />
-));
+  React.HTMLAttributes<HTMLTableRowElement> & { asChild?: boolean }
+>(({ className, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : "tr";
+  return (
+    <Comp
+      ref={ref}
+      className={cn(
+        "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TableRow.displayName = "TableRow";
 
 const TableHead = React.forwardRef<

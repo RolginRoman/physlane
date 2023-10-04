@@ -4,7 +4,9 @@ import { cn, Badge } from "@physlane/ui";
 import React, { ReactNode, useMemo } from "react";
 import {
   LineChart as ChartsLineChart,
+  Label,
   Line,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   TooltipProps,
@@ -61,6 +63,7 @@ export function LineChart<T extends ChartDataItem>({
           height={400}
           data={groupedByDay}
           margin={{ bottom: 5, left: 0, right: 12, top: 5 }}
+      
         >
           <XAxis
             dataKey={xDataKey as DataKey<T>}
@@ -83,18 +86,19 @@ export function LineChart<T extends ChartDataItem>({
             ) => <LineTooltip tooltipProps={props} />}
           />
 
-          {/* <ReferenceLine
+          <ReferenceLine
             y={75}
-            label='Goal'
             strokeWidth={1}
-            strokeDasharray='3 3'
+            strokeDasharray="3 3"
             style={
               {
-                '--theme-primary': `hsl(var(--primary))`,
-                stroke: 'var(--theme-primary)',
+                "--theme-primary": `hsl(var(--primary))`,
+                stroke: "var(--theme-primary)",
               } as React.CSSProperties
             }
-          /> */}
+          >
+            <Label className="translate-y-3 text-sm">Goal</Label>
+          </ReferenceLine>
 
           <Line
             dataKey={yDataKey as DataKey<T>}

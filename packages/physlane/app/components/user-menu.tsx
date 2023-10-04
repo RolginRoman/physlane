@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
   Link,
 } from "@physlane/ui";
-import { Settings } from "./settings/settings";
+import { Settings } from "./settings";
 
 export default async function UserMenu() {
   const currentUser = await getUser();
