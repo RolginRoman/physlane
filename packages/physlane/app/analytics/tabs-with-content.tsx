@@ -8,7 +8,6 @@ import { z } from "zod";
 import { useRelativeQueryParams } from "../navigation";
 import { useSearchParamsModel, Modes, useAdaptiveMeasureReport } from "./hooks";
 import { WeightTable } from "./weight-table/weight-table";
-import { columns } from "./weight-table/weight-table-columns";
 import { LineChart } from "../components/linechart";
 
 export const Filters = ({ data }: { data: z.infer<typeof Report> }) => {
@@ -60,10 +59,7 @@ export const TabsWithContent = ({
       </TabsList>
       <TabsContent value="table">
         <ErrorBoundary fallback={<div>something went wrong</div>}>
-          <WeightTable
-            columns={columns}
-            data={measuredData.weightEntries}
-          ></WeightTable>
+          <WeightTable data={measuredData.weightEntries}></WeightTable>
         </ErrorBoundary>
       </TabsContent>
       <TabsContent value="graph">

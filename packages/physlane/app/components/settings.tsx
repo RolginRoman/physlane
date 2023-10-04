@@ -14,8 +14,8 @@ import { Text } from "@radix-ui/themes";
 import { AnimatePresence, motion as m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
-import { useUpdateUserSettings, useWellKnownSettings } from "../../user/loader";
-import useTimeout from "../use-timeout";
+import { useUpdateUserSettings, useWellKnownSettings } from "../user/loader";
+import useTimeout from "./use-timeout";
 
 type SyncIndicatorState = "synced" | "loading" | undefined;
 
