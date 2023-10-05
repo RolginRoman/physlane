@@ -14,8 +14,10 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
       const { measure, weight } = row.original;
       return (
         <div className="flex justify-between">
-          <Text>{parseFloat(weight.toFixed(1))}</Text>
-          <Badge>{measure}</Badge>
+          <Text weight={"medium"}>{parseFloat(weight.toFixed(1))}</Text>
+          <Badge variant={"secondary"} className="w-10 justify-center">
+            {measure}
+          </Badge>
         </div>
       );
     },
@@ -44,16 +46,21 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
 ];
 
 function DeleteButton({ entryId }: { entryId: string }) {
-  const { isLoading, mutate } = useDeleteEntry(entryId);
+  const { isLoading, isSuccess, mutate } = useDeleteEntry(entryId);
+  const isDeleteProcessing = isLoading || isSuccess;
   return (
     <div className="flex justify-end">
       <WithTooltip content={"Delete entry"} className="mr-5">
         <Button
-          disabled={isLoading}
-          spinner={isLoading}
+          disabled={isDeleteProcessing}
+          spinner={isDeleteProcessing}
           variant={"destructive"}
           size={"icon"}
-          onClick={() => mutate()}
+          onClick={() => {
+            if (!isDeleteProcessing) {
+              mutate();
+            }
+          }}
         >
           <Icons.DeleteEntry />
         </Button>

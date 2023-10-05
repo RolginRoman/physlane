@@ -12,9 +12,30 @@ import addDays from "date-fns/addDays";
 
 export function AnalyticsContent({ mode }: { mode: Modes }) {
   const { data, isFetching, isError } = useReport();
-  const { mutateAsync: createEntryAsync } = useCreateWeightEntry();
 
   const lastMeasure = data?.weightEntries[data.weightEntries.length - 1];
+
+  return (
+    <main className="max-w-screen-lg px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
+      <ImplicitRandomCreateEntry></ImplicitRandomCreateEntry>
+      <div className="flex items-center pb-2">
+        <PostMeasure lastMeasure={lastMeasure}></PostMeasure>
+        {isError && (
+          <Text className="mx-4 inline-block" size="3">
+            Error
+          </Text>
+        )}
+        {isFetching && (
+          <Spinner className="mx-4 inline-block h-[1em] w-[1em]" />
+        )}
+      </div>
+      {data && <TabsWithContent data={data} mode={mode} />}
+    </main>
+  );
+}
+
+const ImplicitRandomCreateEntry = () => {
+  const { mutateAsync: createEntryAsync } = useCreateWeightEntry();
 
   const addStableNewEntry = async () => {
     const values: z.infer<typeof CreateWeight> = {
@@ -30,14 +51,8 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
   };
 
   return (
-    <main className="max-w-screen-lg px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
-      <Button onClick={() => addStableNewEntry()}>Create entry</Button>
-      <div className="flex pb-2">
-        <PostMeasure lastMeasure={lastMeasure}></PostMeasure>
-        {isError && <Text size="3">Error</Text>}
-        {isFetching && <Spinner className="h-[1em] w-[1em]" />}
-      </div>
-      {data && <TabsWithContent data={data} mode={mode} />}
-    </main>
+    <Button variant={"link"} onClick={() => addStableNewEntry()}>
+      Create entry
+    </Button>
   );
-}
+};

@@ -6,19 +6,18 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-  cn,
+  TableRow
 } from "@physlane/ui";
 import {
   ColumnDef,
+  Row,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { AnimatePresence, motion } from "framer-motion";
-import { columns } from "./weight-table-columns";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 import { Key } from "react";
-import { ResizablePanel } from "../../components/resizable-panel";
+import { columns } from "./weight-table-columns";
 
 interface IdProvider {
   id: Key;
@@ -39,8 +38,8 @@ export function WeightTable<TData extends IdProvider, TValue>({
   });
 
   return (
-    <ResizablePanel className="w-full rounded-md border">
-      <Table>
+    <div className="w-full rounded-md border">
+      <Table className="overflow-visible">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow className="hover:bg-transparent" key={headerGroup.id}>
@@ -60,46 +59,12 @@ export function WeightTable<TData extends IdProvider, TValue>({
           ))}
         </TableHeader>
 
-        <TableBody>
+        <TableBody className="relative">
           <AnimatePresence initial={false}>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  asChild
-                  key={row.original.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  <motion.tr
-                    layout
-                    exit={{
-                      opacity: 0,
-                      transition: {
-                        type: "spring",
-                        duration: 0.15,
-                        ease: "easeOut",
-                      },
-                    }}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: 1,
-                      transition: {
-                        type: "tween",
-                        duration: 0.15,
-                        ease: "easeIn",
-                      },
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="p-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </motion.tr>
-                </TableRow>
-              ))
+              table
+                .getRowModel()
+                .rows.map((row) => <TR key={row.original.id} row={row} />)
             ) : (
               <TableRow key={"empty"}>
                 <TableCell
@@ -113,6 +78,53 @@ export function WeightTable<TData extends IdProvider, TValue>({
           </AnimatePresence>
         </TableBody>
       </Table>
-    </ResizablePanel>
+    </div>
   );
 }
+
+const TR = <TData extends IdProvider>({ row }: { row: Row<TData> }) => {
+  const isPresent = useIsPresent();
+  return (
+    <TableRow
+      asChild
+      className="w-full"
+      data-state={row.getIsSelected() && "selected"}
+      style={{
+        position: isPresent ? "relative" : "absolute",
+      }}
+    >
+      <motion.tr
+        layout
+        exit={{
+          opacity: 0,
+          height: 0,
+          transition: {
+            type: "spring",
+            duration: 0.35,
+            ease: "easeOut",
+          },
+        }}
+        initial={{ opacity: 0, backgroundColor: "transparent" }}
+        animate={{
+          opacity: [0, 0.8, 1],
+          height: "auto",
+          backgroundColor: ["transparent", "rgb(255 0 0)", "transparent"],
+          transition: {
+            type: "tween",
+            backgroundColor: {
+              times: [0, 0.9, 1],
+            },
+            duration: 0.15,
+            ease: "easeIn",
+          },
+        }}
+      >
+        {row.getVisibleCells().map((cell) => (
+          <TableCell key={cell.id} className="w-1/2 p-3">
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </TableCell>
+        ))}
+      </motion.tr>
+    </TableRow>
+  );
+};
