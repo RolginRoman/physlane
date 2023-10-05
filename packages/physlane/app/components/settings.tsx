@@ -79,7 +79,7 @@ const SyncIndicator = ({ state }: { state: SyncIndicatorState }) => {
     <>
       <AnimatePresence mode={"wait"} initial={false}>
         {state === "synced" && (
-          <Text>
+          <Text asChild>
             <m.span
               key={"synced"}
               initial={{ opacity: 0 }}

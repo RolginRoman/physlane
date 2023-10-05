@@ -1,6 +1,9 @@
 "use client";
 
-import { cn, Badge } from "@physlane/ui";
+import { Badge, cn } from "@physlane/ui";
+import { Text } from "@radix-ui/themes";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
+import _groupBy from "lodash/groupBy";
 import React, { ReactNode, useMemo } from "react";
 import {
   LineChart as ChartsLineChart,
@@ -13,11 +16,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import _groupBy from "lodash/groupBy";
-import { Text } from "@radix-ui/themes";
 import { DataKey } from "recharts/types/util/types";
 import { useWellKnownSettings } from "../user/loader";
-import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 
 type Grouped<T extends object> = T & { __entries: T[] };
 const dateTimeFormat = new Intl.DateTimeFormat();
@@ -63,7 +63,6 @@ export function LineChart<T extends ChartDataItem>({
           height={400}
           data={groupedByDay}
           margin={{ bottom: 5, left: 0, right: 12, top: 5 }}
-      
         >
           <XAxis
             dataKey={xDataKey as DataKey<T>}
@@ -99,7 +98,6 @@ export function LineChart<T extends ChartDataItem>({
           >
             <Label className="translate-y-3 text-sm">Goal</Label>
           </ReferenceLine>
-
           <Line
             dataKey={yDataKey as DataKey<T>}
             type="monotone"
@@ -116,6 +114,8 @@ export function LineChart<T extends ChartDataItem>({
               r: 6,
               style: { fill: "var(--theme-primary)", opacity: 0.95 },
             }}
+            animationDuration={500}
+            animationEasing={"ease-out"}
           />
         </ChartsLineChart>
       </ResponsiveContainer>

@@ -58,9 +58,14 @@ export async function GET(req: NextRequest) {
       select: {
         createdAt: true,
         weightEntries: {
-          orderBy: {
-            measureDate: "asc",
-          },
+          orderBy: [
+            {
+              measureDate: "asc",
+            },
+            {
+              weight: "asc",
+            },
+          ],
           select: {
             createdAt: true,
             id: true,
