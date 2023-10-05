@@ -74,7 +74,6 @@ export function Settings() {
 }
 
 const SyncIndicator = ({ state }: { state: SyncIndicatorState }) => {
-  console.log(state);
   return (
     <>
       <AnimatePresence mode={"wait"} initial={false}>

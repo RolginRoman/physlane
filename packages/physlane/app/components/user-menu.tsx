@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Link,
+  WithTooltip,
 } from "@physlane/ui";
 import { Settings } from "./settings";
 
@@ -21,9 +22,15 @@ export default async function UserMenu() {
   }
 
   return (
-    <Link href={"/signin"} className="text-slate-800">
-      <Icons.Login></Icons.Login>
-    </Link>
+    <WithTooltip content={"Sign in & sign up"}>
+      <Link
+        href={"/signin"}
+        className="text-slate-800"
+        aria-label="Sign in & sign up"
+      >
+        <Icons.Login></Icons.Login>
+      </Link>
+    </WithTooltip>
   );
 }
 

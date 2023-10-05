@@ -1,9 +1,10 @@
 "use client";
 
-import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import * as React from "react";
 
 import { cn } from "@physlane/ui/utils";
+import { ReactElement, ReactNode } from "react";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
@@ -30,7 +31,7 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 const WithTooltip = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipContent> & {
-    content: React.ReactNode;
+    content: ReactNode;
   }
 >(({ content, children, ...rest }, ref) => {
   return (
@@ -47,8 +48,8 @@ const WithTooltip = React.forwardRef<
 
 export {
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
   TooltipProvider,
+  TooltipTrigger,
   WithTooltip,
 };
