@@ -6,9 +6,9 @@ export async function DELETE(
   _: NextRequest,
   { params }: { params: { entryId: string } }
 ) {
-  const _longResponse = await new Promise((resolve) => {
-    setTimeout(resolve, 3000);
-  });
+  // const _longResponse = await new Promise((resolve) => {
+  //   setTimeout(resolve, 3000);
+  // });
   const currentUser = await getUser();
 
   if (!currentUser) {
