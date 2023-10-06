@@ -8,7 +8,7 @@ export const metadata = {
 export default async function Index() {
   return (
     <main className="mx-auto max-w-screen-lg p-4 pt-8 lg:p-0">
-      <Landing></Landing>
+      <Landing />
     </main>
   );
 }

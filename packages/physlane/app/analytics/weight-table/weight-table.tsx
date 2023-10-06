@@ -6,18 +6,18 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "@physlane/ui";
 import {
-  ColumnDef,
-  Row,
+  type ColumnDef,
+  type Row,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
-import { Key } from "react";
-import { columns } from "./weight-table-columns";
+import { type Key } from "react";
+import { columns } from "./columns/weight-table-columns";
 
 interface IdProvider {
   id: Key;
@@ -95,7 +95,6 @@ const TR = <TData extends IdProvider>({ row }: { row: Row<TData> }) => {
     >
       <motion.tr
         layout
-        
         initial={{ opacity: 0, backgroundColor: "transparent" }}
         animate={{
           opacity: [0, 0.8, 1],

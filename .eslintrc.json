@@ -18,7 +18,8 @@
               }
             ]
           }
-        ]
+        ],
+        "react/self-closing-comp": 2
       }
     },
     {
@@ -31,5 +32,8 @@
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
-  ]
+  ],
+  "settings": {
+    "version": "detect"
+  }
 }
