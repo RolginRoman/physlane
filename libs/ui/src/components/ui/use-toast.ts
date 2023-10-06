@@ -185,4 +185,4 @@ function useToast() {
   };
 }
 
-export { useToast, toast, type ToasterToast as ToastPayload };
+export { toast, useToast, type ToasterToast as ToastPayload };

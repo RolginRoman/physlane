@@ -1,5 +1,5 @@
 import { Weight } from "@physlane/domain";
-import { WithTooltip, Icons, Button } from "@physlane/ui";
+import { Button, Icons, WithTooltip } from "@physlane/ui";
 import { z } from "zod";
 import { useDeleteEntry } from "../../loader";
 

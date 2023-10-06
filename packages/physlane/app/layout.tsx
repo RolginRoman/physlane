@@ -4,13 +4,13 @@ import "./global.css";
 import { fontSans } from "@physlane/fonts";
 import { Toaster, cn } from "@physlane/ui";
 import { Theme } from "@radix-ui/themes";
+import { Hydrate, dehydrate } from "@tanstack/react-query";
+import { headers } from "next/headers";
 import Header from "./components/header";
 import Providers from "./providers";
 import getQueryClient from "./query-client";
-import { loadUserSettings } from "./user/loader";
 import { queryKeys } from "./query-keys";
-import { Hydrate, dehydrate } from "@tanstack/react-query";
-import { headers } from "next/headers";
+import { loadUserSettings } from "./user/loader";
 
 export const metadata = {
   description: "One of the kind",
@@ -38,7 +38,7 @@ export default async function RootLayout({
         <Theme className="flex min-h-screen flex-col">
           <Providers>
             <Hydrate state={dehydratedState}>
-              <Header></Header>
+              <Header />
               {children}
             </Hydrate>
           </Providers>

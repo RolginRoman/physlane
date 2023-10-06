@@ -1,5 +1,7 @@
 "use client";
 import {
+  Button,
+  Label,
   Separator,
   Sheet,
   SheetContent,
@@ -7,10 +9,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  Spinner,
 } from "@physlane/ui";
-import { Heading } from "@radix-ui/themes";
-import { Button, Label, Spinner } from "@physlane/ui";
-import { Text } from "@radix-ui/themes";
+import { Heading, Text } from "@radix-ui/themes";
 import { AnimatePresence, motion as m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
@@ -55,7 +56,7 @@ export function Settings() {
           <SheetDescription>
             Make changes to your settings here.{" "}
             <span className="mt-1.5 block h-5">
-              <SyncIndicator state={state}></SyncIndicator>
+              <SyncIndicator state={state} />
             </span>
           </SheetDescription>
         </SheetHeader>
@@ -100,7 +101,7 @@ const SyncIndicator = ({ state }: { state: SyncIndicatorState }) => {
                 transition: { duration: 0.2, delay: 0.2 },
               }}
               exit={{ opacity: 0, transition: { duration: 0 } }}
-            ></m.span>
+            />
           </Spinner>
         )}
       </AnimatePresence>

@@ -1,6 +1,6 @@
 import { cn } from "@physlane/ui/utils";
-import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const spinnerVariants = cva(
   "relative inline-block h-12 w-12 animate-spin rounded-full border-2 border-solid border-current border-b-transparent text-slate-400",
@@ -34,7 +34,7 @@ export const Spinner = ({
       aria-label="Indefinite loading indicator"
       className={cn(spinnerVariants({ variant }), className)}
       {...props}
-    ></Comp>
+    />
   );
 };
 

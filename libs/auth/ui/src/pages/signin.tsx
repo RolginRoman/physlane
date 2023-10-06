@@ -35,14 +35,9 @@ export function SignIn({
         Object.values(providers).map((provider) =>
           match(provider)
             .with({ type: "credentials" }, (provider) => (
-              <CredentialsForm
-                key={provider.type}
-                csrfToken={csrfToken}
-              ></CredentialsForm>
+              <CredentialsForm key={provider.type} csrfToken={csrfToken} />
             ))
-            .otherwise((provider) => (
-              <OAuthProvider provider={provider}></OAuthProvider>
-            ))
+            .otherwise((provider) => <OAuthProvider provider={provider} />)
         )}
     </Layout>
   );
@@ -97,7 +92,7 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
         });
         throw new Error("invalid email or password");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
     }
   }
@@ -115,10 +110,10 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="fancy@mail.com" {...field}></Input>
+                <Input placeholder="fancy@mail.com" {...field} />
               </FormControl>
               {fieldState.error ? (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className="text-xs" />
               ) : (
                 <FormDescription className="text-xs">
                   Email you've used at sign up
@@ -139,10 +134,10 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
                   autoComplete="current-password"
                   type="password"
                   {...field}
-                ></Input>
+                />
               </FormControl>
               {fieldState.error ? (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className="text-xs" />
               ) : (
                 <FormDescription className="text-xs">
                   Use strong password and don't write it down on a sticky{" "}

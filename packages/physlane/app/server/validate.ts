@@ -1,6 +1,6 @@
-import { wrapper } from "./wrapper";
-import { z } from "zod";
 import { NextRequest } from "next/server";
+import { z } from "zod";
+import { wrapper } from "./wrapper";
 
 export function validated<B extends z.Schema, Q extends z.Schema>(schemas: {
   body?: B;

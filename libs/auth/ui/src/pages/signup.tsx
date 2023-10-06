@@ -23,7 +23,7 @@ export function SignUp({
 }: React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>) {
   return (
     <Layout className={className} footer={children}>
-      <SignUpForm></SignUpForm>
+      <SignUpForm />
     </Layout>
   );
 }
@@ -83,10 +83,10 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Jack Sparrow" {...field}></Input>
+                <Input placeholder="Jack Sparrow" {...field} />
               </FormControl>
               {fieldState.error ? (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className="text-xs" />
               ) : (
                 <FormDescription className="text-xs">
                   Just your name
@@ -102,10 +102,10 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="fancy@mail.com" {...field}></Input>
+                <Input placeholder="fancy@mail.com" {...field} />
               </FormControl>
               {fieldState.error ? (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className="text-xs" />
               ) : (
                 <FormDescription className="text-xs">
                   This is your email for registration. No spam or anything.
@@ -121,14 +121,10 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="password"
-                  type="password"
-                  {...field}
-                ></Input>
+                <Input placeholder="password" type="password" {...field} />
               </FormControl>
               {fieldState.error ? (
-                <FormMessage className="text-xs"></FormMessage>
+                <FormMessage className="text-xs" />
               ) : (
                 <FormDescription className="text-xs">
                   Use strong password and don't write it down on a sticky{" "}

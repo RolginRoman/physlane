@@ -4,7 +4,7 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as React from "react";
 
 import { cn } from "@physlane/ui/utils";
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 

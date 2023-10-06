@@ -9,11 +9,11 @@ import {
   TableRow,
 } from "@physlane/ui";
 import {
-  type ColumnDef,
-  type Row,
   flexRender,
   getCoreRowModel,
   useReactTable,
+  type ColumnDef,
+  type Row,
 } from "@tanstack/react-table";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 import { type Key } from "react";

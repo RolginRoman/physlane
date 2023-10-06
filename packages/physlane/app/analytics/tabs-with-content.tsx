@@ -1,28 +1,27 @@
 "use client";
 
-import { Measures } from "@physlane/domain";
+import { Measures, Report } from "@physlane/domain";
 import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
   Link,
   Spinner,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from "@physlane/ui";
-import { Report } from "@physlane/domain";
+import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import { z } from "zod";
 import { useRelativeQueryParams } from "../navigation";
-import { useSearchParamsModel, Modes, useAdaptiveMeasureReport } from "./hooks";
-import dynamic from "next/dynamic";
+import { Modes, useAdaptiveMeasureReport, useSearchParamsModel } from "./hooks";
 
 const LineChart = dynamic(
   () => import("../components/linechart").then((mod) => mod.LineChart),
-  { loading: () => <Spinner></Spinner> }
+  { loading: () => <Spinner /> }
 );
 const WeightTable = dynamic(
   () => import("./weight-table/weight-table").then((mod) => mod.WeightTable),
-  { loading: () => <Spinner></Spinner> }
+  { loading: () => <Spinner /> }
 );
 
 export const Filters = ({ data }: { data: z.infer<typeof Report> }) => {
@@ -31,7 +30,7 @@ export const Filters = ({ data }: { data: z.infer<typeof Report> }) => {
   const isLbs = measure === "lb";
   const query: { m: Measures } = { m: isLbs ? "kg" : "lb" };
 
-  return <div className="flex"></div>;
+  return <div className="flex" />;
 };
 
 export const TabsWithContent = ({
@@ -74,7 +73,7 @@ export const TabsWithContent = ({
       </TabsList>
       <TabsContent value="table">
         <ErrorBoundary fallback={<div>something went wrong</div>}>
-          <WeightTable data={measuredData.weightEntries}></WeightTable>
+          <WeightTable data={measuredData.weightEntries} />
         </ErrorBoundary>
       </TabsContent>
       <TabsContent value="graph">
@@ -83,7 +82,7 @@ export const TabsWithContent = ({
           data={measuredData.weightEntries}
           xDataKey="measureDate"
           yDataKey="weight"
-        ></LineChart>
+        />
       </TabsContent>
     </Tabs>
   );

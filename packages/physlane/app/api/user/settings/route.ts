@@ -1,9 +1,9 @@
-import { Prisma } from "@prisma/client";
 import { getUser } from "@physlane/auth/core";
 import { db } from "@physlane/db";
 import { UserSettings } from "@physlane/domain";
-import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import _partition from "lodash/partition";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   const currentUser = await getUser();

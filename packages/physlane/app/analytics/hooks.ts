@@ -8,9 +8,9 @@ import {
 } from "@physlane/domain";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import { z } from "zod";
 import { match } from "ts-pattern";
-import { useUserSettings, useWellKnownSettings } from "../user/loader";
+import { z } from "zod";
+import { useWellKnownSettings } from "../user/loader";
 
 export const modes = ["graph", "table"] as const;
 export type Modes = (typeof modes)[number];

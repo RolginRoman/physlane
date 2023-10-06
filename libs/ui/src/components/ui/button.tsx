@@ -1,7 +1,7 @@
-import * as React from "react";
+import { cn } from "@physlane/ui/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@physlane/ui/utils";
+import * as React from "react";
 import { Spinner } from "./spinner";
 
 const buttonVariants = cva(

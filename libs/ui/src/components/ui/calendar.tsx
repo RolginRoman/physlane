@@ -1,11 +1,11 @@
 "use client";
 
-import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import * as React from "react";
 import type { DayPicker } from "react-day-picker";
 
-import { cn } from "@physlane/ui/utils";
 import { buttonVariants } from "@physlane/ui/components/ui/button";
+import { cn } from "@physlane/ui/utils";
 
 const DatePicker = React.lazy(() => import("./calendar-lazy"));
 

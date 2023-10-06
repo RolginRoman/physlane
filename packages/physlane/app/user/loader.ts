@@ -1,9 +1,9 @@
 import { Options, api } from "@physlane/api";
 import { Measure, UserSettings } from "@physlane/domain";
-import { queryKeys } from "../query-keys";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { z } from "zod";
 import { useMemo } from "react";
+import { z } from "zod";
+import { queryKeys } from "../query-keys";
 
 export const loadUserSettings = async (options?: Options) => {
   return api

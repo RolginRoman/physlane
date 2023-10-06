@@ -14,10 +14,10 @@ import {
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCreateWeightEntry } from "../loader";
-import { WeightForm } from "./weight-form";
 import { useWellKnownSettings } from "../../user/loader";
 import { convertWeight } from "../hooks";
+import { useCreateWeightEntry } from "../loader";
+import { WeightForm } from "./weight-form";
 
 const FormSchema = Weight.merge(
   Weight.pick({ id: true, createdAt: true }).deepPartial()
@@ -79,7 +79,7 @@ export function PostMeasure({
             </DialogDescription>
           </DialogHeader>
           <FormProvider {...form}>
-            <WeightForm onSubmit={() => createNewEntry()}></WeightForm>
+            <WeightForm onSubmit={() => createNewEntry()} />
           </FormProvider>
           <DialogFooter>
             <Button
