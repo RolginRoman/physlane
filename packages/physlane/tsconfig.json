@@ -8,6 +8,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "target": "es2015",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
@@ -25,7 +26,8 @@
     "**/*.jsx",
     "../../packages/physlane/.next/types/**/*.ts",
     "../../dist/packages/physlane/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "../../types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -46,7 +46,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
         session.user = session.user ?? {};
-        // @ts-expect-error missed typeRoots merge
         session.user.id = token["id"];
         session.user.name = token.name;
         session.user.email = token.email;

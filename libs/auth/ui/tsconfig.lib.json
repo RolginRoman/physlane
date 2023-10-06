@@ -23,6 +23,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../core/src/index.ts"
+    "../core/src/index.ts",
+    "../../../types/**/*.d.ts"
   ]
 }

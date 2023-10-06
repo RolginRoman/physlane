@@ -95,15 +95,7 @@ const TR = <TData extends IdProvider>({ row }: { row: Row<TData> }) => {
     >
       <motion.tr
         layout
-        exit={{
-          opacity: 0,
-          height: 0,
-          transition: {
-            type: "spring",
-            duration: 0.35,
-            ease: "easeOut",
-          },
-        }}
+        
         initial={{ opacity: 0, backgroundColor: "transparent" }}
         animate={{
           opacity: [0, 0.8, 1],
