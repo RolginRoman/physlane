@@ -37,7 +37,6 @@ const SignUpForm = () => {
       name: "",
       password: "",
     },
-    // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(NewUser, {
       errorMap: (error, ctx) => {
         return { message: ctx.defaultError };

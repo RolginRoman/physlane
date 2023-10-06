@@ -1,6 +1,6 @@
 import { getUser } from "@physlane/auth/core";
 import { db } from "@physlane/db";
-import { ReportRequest, Weight, CreateWeight, Report } from "@physlane/domain";
+import { CreateWeight, Report, ReportRequest } from "@physlane/domain";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { validated } from "../../../server/validate";

@@ -7,8 +7,9 @@
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "downlevelIteration": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "module": "esnext",
     "lib": [
       "es2020",
@@ -33,7 +34,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "typeRoots": ["./types", "./node_modules/@types", "./node_modules/vite"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/vite", "./types"],
     "paths": {
       "@physlane/api": ["libs/api/src/index.ts"],
       "@physlane/auth/core": ["libs/auth/core/src/index.ts"],

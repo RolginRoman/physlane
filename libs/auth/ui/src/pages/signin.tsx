@@ -69,7 +69,6 @@ const CredentialsForm = ({ csrfToken }: { csrfToken: string | undefined }) => {
       email: "",
       password: "",
     },
-    // @ts-expect-error https://github.com/colinhacks/zod/issues/2663
     resolver: zodResolver(UserBaseCredentials, {
       errorMap: (error, ctx) => {
         return { message: ctx.defaultError };

@@ -2,7 +2,9 @@
   "name": "@physlane/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "pnpm exec nx run db:generate-types"
+  },
   "packageManager": "pnpm@8.7.0",
   "private": true,
   "devDependencies": {
@@ -10,6 +12,7 @@
     "@babel/preset-react": "^7.14.5",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
+    "@next/bundle-analyzer": "^13.5.4",
     "@nx/cypress": "16.9.1",
     "@nx/eslint-plugin": "16.9.1",
     "@nx/jest": "16.9.1",
