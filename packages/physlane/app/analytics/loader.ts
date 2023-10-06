@@ -1,5 +1,5 @@
 import { Options, api } from "@physlane/api";
-import { Report, Weight, CreateWeight } from "@physlane/domain";
+import { CreateWeight, Report, Weight } from "@physlane/domain";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { queryKeys } from "../query-keys";

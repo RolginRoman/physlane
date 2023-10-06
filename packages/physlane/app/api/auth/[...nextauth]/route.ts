@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
 import { authOptions } from "@physlane/auth/core";
+import NextAuth from "next-auth";
 
 const handler = NextAuth(authOptions);
 

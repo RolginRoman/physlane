@@ -2,8 +2,8 @@
 import { defineConfig } from "vite";
 
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
-import dts from "vite-plugin-dts";
 import * as path from "path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   // See: https://vitejs.dev/guide/build.html#library-mode

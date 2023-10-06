@@ -2,11 +2,11 @@ import { isAuthorized } from "@physlane/auth/core";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { AnalyticsContent } from "./analytics-content";
-import { loadReport } from "./loader";
-import { Params } from "./hooks";
-import { queryKeys } from "../query-keys";
 import getQueryClient from "../query-client";
+import { queryKeys } from "../query-keys";
+import { AnalyticsContent } from "./analytics-content";
+import { Params } from "./hooks";
+import { loadReport } from "./loader";
 
 export const metadata = {
   description: "Physlane. Analytics Page",
@@ -28,7 +28,7 @@ async function Analytics({
 
   return (
     <Hydrate state={dehydratedState}>
-      <AnalyticsContent mode={searchParams.mode}></AnalyticsContent>
+      <AnalyticsContent mode={searchParams.mode} />
     </Hydrate>
   );
 }

@@ -19,7 +19,7 @@ export const columns: ColumnDef<z.infer<typeof Weight>>[] = [
     header: "Date",
   },
   {
-    cell: ({ row }) => <ActionsColumn data={row.original}></ActionsColumn>,
+    cell: ({ row }) => <ActionsColumn data={row.original} />,
     header: "",
     id: "actions",
   },

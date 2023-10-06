@@ -1,24 +1,24 @@
 import { getUser } from "@physlane/auth/core";
 import { SignOut } from "@physlane/auth/ui";
-import { Text } from "@radix-ui/themes";
-import { Session } from "next-auth";
 import {
-  Icons,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Icons,
   Link,
   WithTooltip,
 } from "@physlane/ui";
+import { Text } from "@radix-ui/themes";
+import { Session } from "next-auth";
 import { Settings } from "./settings";
 
 export default async function UserMenu() {
   const currentUser = await getUser();
 
   if (currentUser) {
-    return <UserMenuDropdown user={currentUser}></UserMenuDropdown>;
+    return <UserMenuDropdown user={currentUser} />;
   }
 
   return (
@@ -28,7 +28,7 @@ export default async function UserMenu() {
         className="text-slate-800"
         aria-label="Sign in & sign up"
       >
-        <Icons.Login></Icons.Login>
+        <Icons.Login />
       </Link>
     </WithTooltip>
   );
@@ -46,10 +46,10 @@ function UserMenuDropdown({ user }: { user: Session["user"] }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>
-          <Settings></Settings>
+          <Settings />
         </DropdownMenuLabel>
         <DropdownMenuLabel>
-          <SignOut></SignOut>
+          <SignOut />
         </DropdownMenuLabel>
       </DropdownMenuContent>
     </DropdownMenu>

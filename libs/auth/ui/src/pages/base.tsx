@@ -18,7 +18,7 @@ export const Layout = React.forwardRef<
         )}
       />
       <div className="flex items-center space-x-1.5">{footer}</div>
-      <AuthErrorToast></AuthErrorToast>
+      <AuthErrorToast />
     </div>
   );
 });

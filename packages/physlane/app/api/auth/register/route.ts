@@ -1,6 +1,6 @@
 import { register } from "@physlane/auth/core";
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {

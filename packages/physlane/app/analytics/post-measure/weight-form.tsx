@@ -1,5 +1,5 @@
 "use client";
-import { Weight, ALL_MEASURES } from "@physlane/domain";
+import { ALL_MEASURES, Weight } from "@physlane/domain";
 import {
   DatePicker,
   Form,
@@ -50,15 +50,9 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
               <FormItem className="grow-[2]">
                 <FormLabel>Weight</FormLabel>
                 <FormControl>
-                  <Input
-                    autoFocus
-                    placeholder="Your weight data"
-                    {...field}
-                  ></Input>
+                  <Input autoFocus placeholder="Your weight data" {...field} />
                 </FormControl>
-                {fieldState.error && (
-                  <FormMessage className="text-xs"></FormMessage>
-                )}
+                {fieldState.error && <FormMessage className="text-xs" />}
               </FormItem>
             )}
           />
@@ -87,9 +81,7 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                     </SelectContent>
                   </Select>
                 </FormControl>
-                {fieldState.error && (
-                  <FormMessage className="text-xs"></FormMessage>
-                )}
+                {fieldState.error && <FormMessage className="text-xs" />}
               </FormItem>
             )}
           />
@@ -107,11 +99,9 @@ export const WeightForm = ({ onSubmit }: { onSubmit: () => void }) => {
                   disabled={(date) =>
                     date > new Date() || date < new Date("1900-01-01")
                   }
-                ></DatePicker>
+                />
               </FormControl>
-              {fieldState.error && (
-                <FormMessage className="text-xs"></FormMessage>
-              )}
+              {fieldState.error && <FormMessage className="text-xs" />}
             </FormItem>
           )}
         />

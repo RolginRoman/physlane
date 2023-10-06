@@ -1,6 +1,6 @@
-import { useToast, ToastPayload } from "@physlane/ui";
+import { ToastPayload, useToast } from "@physlane/ui";
 import { useSearchParams } from "next/navigation";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function resolveErrorMessage(errorType: string): ToastPayload {
   return {

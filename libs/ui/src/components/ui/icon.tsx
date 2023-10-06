@@ -1,4 +1,4 @@
-import { CalendarDays, User2, KeyRound, XCircle } from "lucide-react";
+import { CalendarDays, KeyRound, User2, XCircle } from "lucide-react";
 
 export const Icons = {
   Calendar: CalendarDays,

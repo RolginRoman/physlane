@@ -1,9 +1,8 @@
-import { usePathname } from "next/navigation";
-import { getUser } from "./user";
-import * as React from "react";
-import { redirect } from "next/navigation";
-import { match } from "ts-pattern";
 import { RedirectType } from "next/dist/client/components/redirect";
+import { redirect } from "next/navigation";
+import * as React from "react";
+import { match } from "ts-pattern";
+import { getUser } from "./user";
 
 type FallbackHandler = string;
 type Predicate = "authorized" | "unauthorized";

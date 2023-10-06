@@ -1,7 +1,7 @@
 import { db } from "@physlane/db";
+import { NewUser } from "@physlane/domain";
 import { hash } from "bcryptjs";
 import { z } from "zod";
-import { NewUser } from "@physlane/domain";
 
 export async function register(payload: z.infer<typeof NewUser>) {
   const parsed = NewUser.safeParse(payload);

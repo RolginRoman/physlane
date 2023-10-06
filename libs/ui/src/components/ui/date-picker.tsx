@@ -5,8 +5,8 @@ import * as React from "react";
 import { cn } from "../../utils";
 import { Button } from "./button";
 import { Calendar, CalendarProps } from "./calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Icons } from "./icon";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 type DatePickerProps = {
   value?: Date;

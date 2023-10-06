@@ -1,3 +1,3 @@
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from "react-day-picker";
 
 export default DayPicker;
