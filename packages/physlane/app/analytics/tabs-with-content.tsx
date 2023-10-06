@@ -1,14 +1,29 @@
 "use client";
 
 import { Measures } from "@physlane/domain";
-import { Tabs, TabsList, TabsTrigger, TabsContent, Link } from "@physlane/ui";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Link,
+  Spinner,
+} from "@physlane/ui";
 import { Report } from "@physlane/domain";
 import { ErrorBoundary } from "react-error-boundary";
 import { z } from "zod";
 import { useRelativeQueryParams } from "../navigation";
 import { useSearchParamsModel, Modes, useAdaptiveMeasureReport } from "./hooks";
-import { WeightTable } from "./weight-table/weight-table";
-import { LineChart } from "../components/linechart";
+import dynamic from "next/dynamic";
+
+const LineChart = dynamic(
+  () => import("../components/linechart").then((mod) => mod.LineChart),
+  { loading: () => <Spinner></Spinner> }
+);
+const WeightTable = dynamic(
+  () => import("./weight-table/weight-table").then((mod) => mod.WeightTable),
+  { loading: () => <Spinner></Spinner> }
+);
 
 export const Filters = ({ data }: { data: z.infer<typeof Report> }) => {
   const relativeWith = useRelativeQueryParams();
