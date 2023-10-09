@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { HTMLAttributes } from "react";
 
 const menuItems = [
-  { href: "/", name: "home" },
+  // { href: "/", name: "home" },
   { href: "/analytics", name: "analytics" },
 ];
 
@@ -22,6 +22,8 @@ export default function Menu(props: HTMLAttributes<HTMLElement>) {
             >
               <Link
                 theme={{
+                  color: "gray",
+                  weight: "medium",
                   underline: pathName === item.href ? "always" : "auto",
                 }}
                 href={item.href}

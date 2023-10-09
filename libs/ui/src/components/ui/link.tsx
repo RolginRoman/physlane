@@ -10,7 +10,12 @@ export const Link = React.forwardRef<
   React.PropsWithChildren<LinkProps>
 >(({ theme = {}, ...props }: React.PropsWithChildren<LinkProps>, ref) => {
   return (
-    <ThemedLink ref={ref} asChild {...theme}>
+    <ThemedLink
+      ref={ref}
+      asChild
+      {...theme}
+      // className="text-slate-500 visited:text-slate-900"
+    >
       <NextLink {...props} />
     </ThemedLink>
   );

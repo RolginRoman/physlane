@@ -14,7 +14,7 @@ export const Layout = React.forwardRef<
 
       <Separator
         className={cn(
-          "after:text-muted-foreground relative my-4 after:absolute after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-white after:p-1 after:text-sm after:content-['OR']"
+          "after:text-muted-foreground relative my-4 after:absolute after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-white after:px-1 after:py-0.5 after:text-sm after:content-['OR']"
         )}
       />
       <div className="flex items-center space-x-1.5">{footer}</div>
