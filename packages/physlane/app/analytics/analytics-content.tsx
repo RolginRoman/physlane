@@ -16,7 +16,7 @@ export function AnalyticsContent({ mode }: { mode: Modes }) {
   const lastMeasure = data?.weightEntries[data.weightEntries.length - 1];
 
   return (
-    <main className="max-w-screen-lg px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
+    <main className="max-w-screen-lg flex-grow px-4 pb-12 lg:mx-auto lg:min-w-[912px] lg:px-0 lg:pb-16 lg:pt-4">
       <ImplicitRandomCreateEntry />
       <div className="flex items-center pb-2">
         <PostMeasure lastMeasure={lastMeasure} />

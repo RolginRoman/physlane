@@ -6,6 +6,7 @@ import { Toaster, cn } from "@physlane/ui";
 import { Theme } from "@radix-ui/themes";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 import { headers } from "next/headers";
+import { Footer } from "./components/footer";
 import Header from "./components/header";
 import Providers from "./providers";
 import getQueryClient from "./query-client";
@@ -35,11 +36,12 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
-        <Theme className="flex min-h-screen flex-col">
+        <Theme className="flex min-h-screen flex-col overflow-hidden">
           <Providers>
             <Hydrate state={dehydratedState}>
               <Header />
               {children}
+              <Footer />
             </Hydrate>
           </Providers>
           <Toaster />

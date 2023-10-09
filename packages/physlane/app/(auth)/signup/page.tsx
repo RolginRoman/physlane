@@ -15,11 +15,11 @@ async function SignUnPage() {
       <Text size={"2"} weight={"medium"} className="text-muted-foreground">
         Already have an account?
       </Text>
-      <Text size={"2"} weight={"medium"}>
-        <Link href="/signin" className="block">
+      <Link href="/signin" className="block">
+        <Text size={"2"} weight={"medium"}>
           Sign in
-        </Link>
-      </Text>
+        </Text>
+      </Link>
     </SignUp>
   );
 }

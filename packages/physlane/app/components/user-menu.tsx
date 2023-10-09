@@ -41,7 +41,7 @@ function UserMenuDropdown({ user }: { user: Session["user"] }) {
         <Icons.User className="mx-auto h-6 w-6 cursor-pointer text-slate-800" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="me-4 w-56">
-        <DropdownMenuLabel>
+        <DropdownMenuLabel className="overflow-hidden text-ellipsis">
           <Text className="cursor-default">{user?.name}</Text>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

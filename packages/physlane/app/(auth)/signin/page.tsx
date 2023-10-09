@@ -23,11 +23,11 @@ async function SignInPage() {
       <Text size={"2"} weight={"medium"} className="text-muted-foreground">
         Don&apos;t have an account?
       </Text>
-      <Text size={"2"} weight={"medium"}>
-        <Link href="/signup" className="block">
+      <Link href="/signup" className="block">
+        <Text size={"2"} weight={"medium"}>
           Sign up
-        </Link>
-      </Text>
+        </Text>
+      </Link>
     </SignIn>
   );
 }
