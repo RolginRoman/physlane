@@ -36,7 +36,7 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
-        <Theme className="flex min-h-screen flex-col overflow-hidden">
+        <Theme className="flex min-h-screen flex-col">
           <Providers>
             <Hydrate state={dehydratedState}>
               <Header />
