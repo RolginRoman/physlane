@@ -35,7 +35,8 @@
       "files": ["*.tsx", "*.jsx"],
       "extends": ["plugin:@nx/typescript"],
       "rules": {
-        "react/self-closing-comp": 2
+        "react/self-closing-comp": 2,
+        "react/jsx-key": 2
       }
     }
   ],
