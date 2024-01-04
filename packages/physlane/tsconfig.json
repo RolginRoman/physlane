@@ -17,17 +17,19 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../packages/physlane/.next/types/**/*.ts",
-    "../../dist/packages/physlane/.next/types/**/*.ts",
     "next-env.d.ts",
-    "../../types/**/*.d.ts"
+    "../../types/**/*.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
