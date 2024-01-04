@@ -6,8 +6,12 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
+  root: __dirname,
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
+    outDir: "../../../dist/libs/auth/ui",
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: "src/index.ts",

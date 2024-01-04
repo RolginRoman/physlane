@@ -33,7 +33,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/db"
+        "outputPath": "dist/libs/db"
       },
       "configurations": {
         "development": {
