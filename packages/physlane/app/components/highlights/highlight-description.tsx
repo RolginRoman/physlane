@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { HTMLAttributes, PropsWithChildren } from "react";
 import { useSelectedHighlight } from "./state";
 
-export const HightlightsDescriptions = ({
+export const HighlightsDescriptions = ({
   highlights,
 }: {
   highlights: { title: string; card: typeof HighlightCard }[];
@@ -62,7 +62,7 @@ export const DiscoverPower = ({ title }: { title: string }) => {
       <Text as="span" weight={"bold"} size="6">
         Your Path to Empowered Fitness
       </Text>
-      <Text as="div">
+      <Text as="div" size="4" className="mt-2">
         Discover the power of knowledge with Physlane, our cutting-edge web app
         that merges fitness and analytics. Gain invaluable insights into your
         body metrics, guiding informed decisions on your health and fitness
@@ -78,7 +78,7 @@ export const Goals = ({ title }: { title: string }) => {
       <Text as="span" weight={"bold"} size="6">
         Your Path to Effortless Progress Tracking
       </Text>
-      <Text as="div">
+      <Text as="div" size="4" className="mt-2">
         Easily track your progress, set achievable goals, and monitor real-time
         results with our user-friendly interface. Whether your aim is weight
         loss, muscle building, or overall wellness, Physlane equips you with the
@@ -94,7 +94,7 @@ export const Analytics = ({ title }: { title: string }) => {
       <Text as="span" weight={"bold"} size="6">
         Streamlined Body Metrics Insights
       </Text>
-      <Text as="div">
+      <Text as="div" size="4" className="mt-2">
         Bid farewell to confusing spreadsheets and intricate fitness apps.
         Physlane delivers a user-friendly experience that prominently features
         your body metrics. Our intuitive charts and graphs transform data into
@@ -111,7 +111,7 @@ export const Privacy = ({ title }: { title: string }) => {
       <Text as="span" weight={"bold"} size="6">
         Securing Your Health Data
       </Text>
-      <Text as="div">
+      <Text as="div" size="4" className="mt-2">
         At Physlane, we value the confidentiality of your health data. Be
         confident that your information is secure with us, safeguarded by the
         most advanced encryption and security measures.
@@ -120,18 +120,17 @@ export const Privacy = ({ title }: { title: string }) => {
   );
 };
 
-export const Accesibility = ({ title }: { title: string }) => {
+export const Accessibility = ({ title }: { title: string }) => {
   return (
     <HighlightCard title={title} className="from-indigo-200 to-white">
       <Text as="span" weight={"bold"} size="6">
         Analytics Across All Devices
       </Text>
-      <Text as="div">
+      <Text as="div" size="4" className="mt-2">
         Access Physlane from your desktop to your smartphone, whether
         you&apos;re at home, the gym, or on the move, to have your fitness
         analytics within easy reach. Join us today to take charge of your
-        fitness journey and harness the potential of data-driven wellness. Start
-        now to embark on a new era of health and well-being.
+        fitness journey.
       </Text>
     </HighlightCard>
   );

@@ -6,7 +6,13 @@ import { useInView } from "framer-motion";
 import { useEffect, useMemo, useRef } from "react";
 import { useSelectedHighlight } from "./state";
 
-export const Highlight = ({ title }: { title: string }) => {
+export const Highlight = ({
+  title,
+  index,
+}: {
+  title: string;
+  index: number;
+}) => {
   const target = useRef(null);
   const isInView = useInView(target, {
     margin: "-45% 0px -45% 0px",
