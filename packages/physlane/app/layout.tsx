@@ -40,7 +40,7 @@ export default async function RootLayout({
           <Providers>
             <Hydrate state={dehydratedState}>
               <Header />
-              {children}
+              <main className="grow">{children}</main>
               <Footer />
             </Hydrate>
           </Providers>
