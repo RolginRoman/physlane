@@ -112,7 +112,7 @@ export default function Landing() {
           </li>
         </ol>
         <Text size={"4"} className="mb-12 mt-4 block">
-          And that&apos;s all it takes actually...
+          And that&apos;s all it takes, actually 😌
         </Text>
 
         {/* <Text as="p">

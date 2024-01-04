@@ -5,7 +5,7 @@ import UserMenu from "./user-menu";
 
 export default function Header() {
   return (
-    <header className="z-[1] flex justify-between p-4">
+    <header className="z-[1] flex justify-between rounded-b-sm p-4">
       <div className="flex items-center">
         <Link href={"/"} aria-labelledby="Return to home page">
           <Logo width={124} full />
