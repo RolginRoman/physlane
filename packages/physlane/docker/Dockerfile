@@ -9,14 +9,14 @@ WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 
-COPY ./package.json ./pnpm-lock.yaml* ./nx.json ./tsconfig.json ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+COPY ./package.json ./pnpm-lock.yaml* ./pnpm-workspace.yaml ./nx.json ./.npmrc ./tsconfig.json ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps ./app/node_modules ./node_modules
-COPY --from=deps ./app/package.json ./app/pnpm-lock.yaml* ./app/nx.json ./app/tsconfig.json ./
+COPY --from=deps ./app/package.json ./app/pnpm-lock.yaml* ./app/pnpm-workspace.yaml ./app/.npmrc ./app/nx.json ./app/tsconfig.json ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY ./libs ./libs
@@ -25,7 +25,8 @@ COPY ./types ./types
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN pnpm exec nx build physlane --skip-nx-cache
+RUN pnpm exec nx prebuild db
+RUN pnpm exec nx build physlane
 
 # Production image, copy all the files and run next
 FROM base AS runner
