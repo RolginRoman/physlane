@@ -16,7 +16,7 @@
         "cwd": "libs/db"
       }
     },
-    "generate-types": {
+    "prebuild": {
       "command": "prisma generate",
       "options": {
         "cwd": "libs/db"
