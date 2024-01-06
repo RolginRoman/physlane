@@ -53,6 +53,9 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
+    },
+    "docker-build": {
+      "command": "docker build -f docker/Dockerfile . -t physlane-docker"
     }
   },
   "tags": []
