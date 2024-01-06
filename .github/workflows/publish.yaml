@@ -17,6 +17,7 @@ jobs:
   build-and-publish:
     name: Build and publish
     runs-on: ubuntu-latest
+    environment: prod
     strategy:
       fail-fast: false
       matrix:
