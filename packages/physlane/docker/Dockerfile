@@ -9,23 +9,40 @@ WORKDIR /app
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 
+COPY ./libs ./libs
 COPY ./package.json ./pnpm-lock.yaml* ./pnpm-workspace.yaml ./nx.json ./.npmrc ./tsconfig.json ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
-FROM base AS builder
+FROM base AS prepared-builder
 WORKDIR /app
 COPY --from=deps ./app/node_modules ./node_modules
-COPY --from=deps ./app/package.json ./app/pnpm-lock.yaml* ./app/pnpm-workspace.yaml ./app/.npmrc ./app/nx.json ./app/tsconfig.json ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-
-COPY ./libs ./libs
-COPY ./packages/physlane ./packages/physlane
+COPY --from=deps ./app/libs ./libs
 COPY ./types ./types
+COPY --from=deps ./app/package.json ./app/pnpm-lock.yaml* ./app/pnpm-workspace.yaml ./app/.npmrc ./app/nx.json ./app/tsconfig.json ./
+COPY ./packages/physlane ./packages/physlane
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN pnpm exec nx prebuild db
+
+# RUN echo "Checking file... after generation"
+# RUN \
+#   if [ -f /app/node_modules/.prisma/client/index.d.ts ]; then head -n 25 /app/node_modules/.prisma/client/index.d.ts; \
+#   fi
+# RUN \
+#   if [ -f /app/node_modules/@prisma/client/index.d.ts ]; then head -n 25 /app/node_modules/@prisma/client/index.d.ts; \
+#   fi
+# RUN echo "Checking file... _________"
+
+# RUN pnpm exec nx build physlane
+
+FROM prepared-builder as builder
+WORKDIR /app
+COPY --from=prepared-builder ./app ./
+ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm exec nx build physlane
 
 # Production image, copy all the files and run next
