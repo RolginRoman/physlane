@@ -72,7 +72,5 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Migrate DB
         run: pnpm exec nx publish db
-      - name: Debug info
-        run: echo ${{ steps.dockerbuild.outputs.imageid }} && echo ${{ steps.dockerbuild.outputs.digest }} && echo ${{ steps.dockerbuild.outputs.metadata }}
-      # - name: Trigger deploy
-      #   run: curl --data-urlencode ${{ secrets.RENDER_DEPLOY_HOOK_URL }} -d imgUrl $IMAGE_NAME
+      - name: Trigger deploy
+        run: curl --data-urlencode ${{ secrets.RENDER_DEPLOY_HOOK_URL }} -d imgUrl $IMAGE_NAME ${{ steps.dockerbuild.outputs.digest }}
