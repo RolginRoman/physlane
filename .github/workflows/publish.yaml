@@ -73,4 +73,4 @@ jobs:
       - name: Migrate DB
         run: pnpm exec nx publish db
       - name: Trigger deploy
-        run: curl --data-urlencode ${{ secrets.RENDER_DEPLOY_HOOK_URL }} -d "imgUrl=${{matrix.dockerfile}}:${{ steps.dockerbuild.outputs.digest }}"
+        run: curl --data-urlencode "imgUrl=${{matrix.image}}@${{ steps.dockerbuild.outputs.digest }}" ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
