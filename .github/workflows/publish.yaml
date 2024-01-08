@@ -11,7 +11,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DATABASE_URL: ${{ vars.DATABASE_URL }}
 
 jobs:
   build-and-publish:
