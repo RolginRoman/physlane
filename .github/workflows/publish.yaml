@@ -11,7 +11,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DATABASE_URL: ""
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
   build-and-publish:
@@ -21,6 +21,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        nodev: [20]
+        pnpmv: [8]
         include:
           - dockerfile: ./packages/physlane/docker/Dockerfile
             image: ghcr.io/rolginroman/physlane/physlane-app
@@ -56,3 +58,16 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Pnpm setup
+        uses: pnpm/action-setup@v2
+        with:
+            version: ${{ matrix.pnpmv }}
+      - name: Use Node.js ${{ matrix.nodev }}
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.nodev }}
+            cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Migrate DB
+        run: pnpm exec nx publish db

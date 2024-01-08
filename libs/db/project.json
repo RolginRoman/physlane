@@ -16,6 +16,12 @@
         "cwd": "libs/db"
       }
     },
+    "publish": {
+      "command": "prisma migrate deploy",
+      "options": {
+        "cwd": "libs/db"
+      }
+    },
     "prebuild": {
       "command": "prisma generate",
       "options": {
