@@ -28,21 +28,11 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN pnpm exec nx prebuild db
 
-# RUN echo "Checking file... after generation"
-# RUN \
-#   if [ -f /app/node_modules/.prisma/client/index.d.ts ]; then head -n 25 /app/node_modules/.prisma/client/index.d.ts; \
-#   fi
-# RUN \
-#   if [ -f /app/node_modules/@prisma/client/index.d.ts ]; then head -n 25 /app/node_modules/@prisma/client/index.d.ts; \
-#   fi
-# RUN echo "Checking file... _________"
-
-# RUN pnpm exec nx build physlane
-
-FROM prepared-builder as builder
+FROM base as builder
 WORKDIR /app
 COPY --from=prepared-builder ./app ./
 ENV NEXT_TELEMETRY_DISABLED 1
+
 RUN pnpm exec nx build physlane
 
 # Production image, copy all the files and run next
